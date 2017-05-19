@@ -33,12 +33,12 @@ Deberán programar un compresor y descompresor de imágenes con el método Quad 
     1.  Inicialmente todas las imágenes se encuentran deseleccionadas.
 
     2.  Mediante el teclado utilizando los números del “1” a “9”, el
-        > usuario elige una a una las imágenes que se comrpimirán luego.
+        usuario elige una a una las imágenes que se comrpimirán luego.
 
     3.  Presionando la “A” elige todas las imágenes (All).
 
     4.  Presionando la “N” deselecciona todas las imágenes
-        > elegidas (None).
+        elegidas (None).
 
     5.  Los números del “1” al “9” funcionan en modo toggle.
 
@@ -76,43 +76,43 @@ Deberán programar un compresor y descompresor de imágenes con el método Quad 
 3.  Genera una ventana de Allegro de 1000 x 600 px.
 
 4.  En dicha ventana mostrará los primeros 9 archivos (con un nombre
-    > alegórico sobre un rectángulo que el grupo defina) en un mosaico
-    > de 3x3 como muestra la figura 1.
+    alegórico sobre un rectángulo que el grupo defina) en un mosaico
+    de 3x3 como muestra la figura 1.
 
 5.  Le permitirá al usuario elegir los archivos a descomprimir.
 
     1.  Inicialmente todos los archivos se encuentran deseleccionados.
 
     2.  Mediante el teclado utilizando los números del “1” a “9”, el
-        > usuario elige uno a uno los archivos que se
-        > descomprimirán luego.
+        usuario elige uno a uno los archivos que se
+        descomprimirán luego.
 
     3.  Presionando la “A” elige todos los archivos (All).
 
     4.  Presionando la “N” deselecciona todos los archivos
-        > elegidas (None).
+        elegidas (None).
 
     5.  Los números del “1” al “9” funcionan en modo toggle.
 
 6.  Se deberá indicarle al usuario de alguna forma los archivos
-    > seleccionados en cada mosaico (por ejemplo añadiéndole un marco
-    > verde a los archivos seleccionados y uno negro a los que no se
-    > hayan seleccionado).
+    seleccionados en cada mosaico (por ejemplo añadiéndole un marco
+    verde a los archivos seleccionados y uno negro a los que no se
+    hayan seleccionado).
 
 7.  Con las flechas “&lt;-” y “-&gt;” el usuario podrá navegar por todos
-    > los archivos que se encuentran en el directorio (cada vez que se
-    > aprieta uno u otro se actualiza el mosaico de nueve archivos con
-    > los nueve siguientes o los nueve anteriores según corresponda).
+    los archivos que se encuentran en el directorio (cada vez que se
+    aprieta uno u otro se actualiza el mosaico de nueve archivos con
+    los nueve siguientes o los nueve anteriores según corresponda).
 
 8.  Para cada mosaico podrá elegir los archivos a descomprimir
-    > repitiendo los ítems 5 y 6.
+    repitiendo los ítems 5 y 6.
 
 9.  Cuando haya terminado la selección mediante la tecla ENTER comenzará
-    > la descompresión de cada uno de los archivos seleccionadas.
+    la descompresión de cada uno de los archivos seleccionadas.
 
 10. Una vez que se hayan descomprimido todos los archivos seleccionados
-    > el programa termina y le indica al usuario lo sucedido esperando
-    > su OK para cerrarse.
+    el programa termina y le indica al usuario lo sucedido esperando
+    su OK para cerrarse.
 
 11. El path se recibe por línea de comandos.
 
@@ -120,7 +120,7 @@ Deberán programar un compresor y descompresor de imágenes con el método Quad 
 
 Figura 1
 
-> Detalles del algoritmo de compresión Quad Tree:
+***Detalles del algoritmo de compresión Quad Tree:***
 
 <img src="./media/image2.jpeg" width="528" height="485" />
 
