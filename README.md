@@ -71,7 +71,7 @@ Deberán programar un compresor y descompresor de imágenes con el método Quad 
 1.  Recibe un “path” de un directorio.
 
 2.  Busca en dicho directorio todas las imágenes compatibles en formato
-    > de compresión que cada grupo haya establecido.
+    de compresión que cada grupo haya establecido.
 
 3.  Genera una ventana de Allegro de 1000 x 600 px.
 
@@ -135,11 +135,11 @@ Para leer imágenes usaremos la librería lodepng
 (*http://lodev.org/lodepng/*), que permite leer y escribir archivos
 gráficos PNG de manera sencilla. Las llamadas que nos interesan son:
 
-unsigned LodePNG\_decode32\_file(unsigned char\*\* out, unsigned\* w,
-unsigned\* h, const char\* filename);
+>unsigned LodePNG\_decode32\_file(unsigned char\*\* out, unsigned\* w,
+>unsigned\* h, const char\* filename);
 
-unsigned LodePNG\_encode32(unsigned char\*\* out, size\_t\* outsize,
-const unsigned char\* image, unsigned w, unsigned h);
+>unsigned LodePNG\_encode32(unsigned char\*\* out, size\_t\* outsize,
+>const unsigned char\* image, unsigned w, unsigned h);
 
 Trabajaremos en el modo de 32 bits, en el cual cada pixel ocupa 4 bytes.
 El primer byte representa la cantidad de color rojo, el segundo verde,
