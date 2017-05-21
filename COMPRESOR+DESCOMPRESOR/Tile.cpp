@@ -29,7 +29,7 @@ string Tile::getFilename()
 
 }
 
-void Tile::draw (uint x0, uint y0) //funcion que dibuja con allegro UN TILE (una imagen)
+void Tile::draw (unsigned int x0, unsigned int y0) //funcion que dibuja con allegro UN TILE (una imagen)
 {
 
 }

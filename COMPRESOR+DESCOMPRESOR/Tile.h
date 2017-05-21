@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+//#include "stdint.h"
 
 using namespace std;
 
@@ -16,5 +17,5 @@ public:
 	void toggleSelection();
 	bool isSelected();
 	string getFilename();
-	void draw(uint x0, uint y0); //funcion que dibuja con allegro UN TILE (una imagen)
+	void draw(unsigned int x0, unsigned int y0); //funcion que dibuja con allegro UN TILE (una imagen)
 }

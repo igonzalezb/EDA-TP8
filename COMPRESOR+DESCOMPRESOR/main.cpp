@@ -11,19 +11,18 @@ is_regular_file // devuelve true si es un regular file o directory
 */
 
 
-
-
 //char a[50] // memoria contigua, se puede acceder a cualquier elementos-> acceso directo
 
 
+#include "Board.h"
+#include "Tile.h"
 
 int main(void)
 {
 	//EDAlist<int>li;
 	//EDAlis<double>la;
 
-	List<Tile>Tiles;
-
-	Tiles.addElement(5, 0);
-
+	Board B;
+	
+	B.getTiles().addElement(pos, 0);
 }
