@@ -167,7 +167,6 @@ int main()
 }
 
 
-
 void keyDispacher(ALLEGRO_EVENT ev)
 {	
 	switch (ev.keyboard.keycode) {
@@ -215,61 +214,6 @@ void keyDispacher(ALLEGRO_EVENT ev)
 
 }
 
-bool allegroStartup(void)
-{
-	if (al_init())
-	{
-		if (al_init_primitives_addon())
-		{
-			if (al_install_keyboard())
-			{
-				if (al_install_mouse())
-				{
-					if (al_init_image_addon())
-					{
-						al_init_font_addon();   //Void
-						
-						if (al_init_ttf_addon())
-						{
-							return EXIT_SUCCESS;
-						}
-						else
-							fprintf(stderr, "ERROR: Failed to initialize ttf addon\n");
-						al_shutdown_font_addon();
-						al_shutdown_image_addon();
-					}
-					else
-						fprintf(stderr, "ERROR: Failed to initialize image addon\n");
-					al_uninstall_mouse();
-				}
-				else
-					fprintf(stderr, "ERROR: Failed to install mouse\n");
-				al_uninstall_keyboard();
-			}
-			else
-				fprintf(stderr, "ERROR: Failed to to install keyboard\n");
-			al_shutdown_primitives_addon();
-		}
-		else
-			fprintf(stderr, "ERROR: Failed to load primitives addon \n");
-		al_uninstall_system();
-	}
-	else
-		fprintf(stderr, "ERROR: Failed to initialize allegro system\n");
-	
-	return EXIT_FAILURE;
-}
-
-void allegroShutdown(void)
-{
-	al_shutdown_font_addon();
-	al_shutdown_image_addon();
-	al_uninstall_mouse();
-	al_uninstall_keyboard();
-	al_shutdown_primitives_addon();
-	al_uninstall_system();
-}
-
 void drawTales(ALLEGRO_BITMAP **talesArray)
 {
 	int taleNumber = 0;
@@ -304,4 +248,59 @@ void selectTale(int j, int i, bool isSelected)
 		((SCREEN_W / 6) * (i)) - (TALES_W / 2) + TALES_W, ((SCREEN_H / 6) * (j)) - (TALES_H / 2) + TALES_H,
 		al_map_rgb(0.0,0.0, 0.0), 5.0);
 	al_flip_display();
+}
+
+bool allegroStartup(void)
+{
+	if (al_init())
+	{
+		if (al_init_primitives_addon())
+		{
+			if (al_install_keyboard())
+			{
+				if (al_install_mouse())
+				{
+					if (al_init_image_addon())
+					{
+						al_init_font_addon();   //Void
+
+						if (al_init_ttf_addon())
+						{
+							return EXIT_SUCCESS;
+						}
+						else
+							fprintf(stderr, "ERROR: Failed to initialize ttf addon\n");
+						al_shutdown_font_addon();
+						al_shutdown_image_addon();
+					}
+					else
+						fprintf(stderr, "ERROR: Failed to initialize image addon\n");
+					al_uninstall_mouse();
+				}
+				else
+					fprintf(stderr, "ERROR: Failed to install mouse\n");
+				al_uninstall_keyboard();
+			}
+			else
+				fprintf(stderr, "ERROR: Failed to to install keyboard\n");
+			al_shutdown_primitives_addon();
+		}
+		else
+			fprintf(stderr, "ERROR: Failed to load primitives addon \n");
+		al_uninstall_system();
+	}
+	else
+		fprintf(stderr, "ERROR: Failed to initialize allegro system\n");
+
+	return EXIT_FAILURE;
+}
+
+void allegroShutdown(void)
+{
+	al_shutdown_font_addon();
+	al_shutdown_image_addon();
+	al_uninstall_mouse();
+	al_uninstall_keyboard();
+	al_shutdown_primitives_addon();
+	al_uninstall_system();
 }
