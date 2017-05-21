@@ -42,7 +42,7 @@ int main()
 		return EXIT_FAILURE;
 	}
 
-	logo = al_load_bitmap("resources/logo.png");
+	logo = al_load_bitmap("resources\\logo.png");
 	if (!logo) {
 		fprintf(stderr, "failed to create logo!\n");
 		al_destroy_display(display);
@@ -50,7 +50,7 @@ int main()
 		return EXIT_FAILURE;
 	}
 
-	background = al_load_bitmap("resources/background.png");
+	background = al_load_bitmap("resources\\background.png");
 	if (!background) {
 		fprintf(stderr, "failed to create background!\n");
 		al_destroy_display(display);
@@ -59,7 +59,7 @@ int main()
 		return EXIT_FAILURE;
 	}
 
-	font = al_load_ttf_font("resources/font.ttf", 30, 0);
+	font = al_load_ttf_font("resources\\font.ttf", 30, 0);
 	if (!font) {
 		fprintf(stderr, "failed to create font!\n");
 		al_destroy_display(display);
@@ -88,7 +88,7 @@ int main()
 	char aPath[700];
 	for (unsigned int i = 0; i < TALES_MAX; i++)
 	{
-		sprintf_s(aPath, "resources/image (%d).jpg", i);
+		sprintf_s(aPath, "resources\\image (%d).jpg", i);
 		talesArray[i] = al_load_bitmap(aPath);
 		if (!talesArray[i])
 		{
