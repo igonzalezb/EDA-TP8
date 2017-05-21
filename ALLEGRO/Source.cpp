@@ -13,20 +13,22 @@
 
 bool allegroStartup(void);
 void allegroShutdown(void);
+void keyDispacher(ALLEGRO_EVENT ev);
 void drawTales(ALLEGRO_BITMAP **talesArray);
 
 int main()
 {
+
+	ALLEGRO_DISPLAY *display = NULL;
+	ALLEGRO_BITMAP *logo = NULL;
+	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
+	ALLEGRO_BITMAP *talesArray[TALES_MAX];
+
+//===========================================================================================================
 	if (allegroStartup()) {
 		fprintf(stderr, "Error Initilizing Allegro\n");
 		return EXIT_FAILURE;
 	}
-	
-	ALLEGRO_DISPLAY *display = NULL;
-	ALLEGRO_BITMAP *logo = NULL;
-	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
-	ALLEGRO_BITMAP *imageArray[TALES_MAX];
-
 	
 	display = al_create_display(SCREEN_W, SCREEN_H);
 	if (!display){
@@ -52,31 +54,42 @@ int main()
 		return EXIT_FAILURE;
 	}
 
+//===========================================================================================================
+	// CAMBIARLO POR LA LISTA Y PONERLO COMO FUNCION APARTE PARA QUE SE LLAME CADA VEZ QUE SE APRETE <- ->
+
 
 	char aPath[700];
 	for (unsigned int i = 0; i < TALES_MAX; i++)
 	{
-
-		sprintf_s(aPath, "resources/image (%d).jpg", i);		//voy cambiando de frame (i), copiando el string con el valor de frame en que estoy en aPath
-
-		imageArray[i] = al_load_bitmap(aPath);	//Voy cargando los bitmaps al arreglo variable
-		if (!imageArray[i])
+		sprintf_s(aPath, "resources/image (%d).jpg", i);
+		talesArray[i] = al_load_bitmap(aPath);
+		if (!talesArray[i])
 		{
 			fprintf(stderr, "failed to create tale\n");
+			al_destroy_display(display);
+			al_destroy_bitmap(logo);
+			al_destroy_event_queue(event_queue);
+			for (i--; i >= 0; i--)
+				al_destroy_bitmap(talesArray[i]);
+
+			allegroShutdown();
+			return EXIT_FAILURE;
 		}
 	}
 
+//===========================================================================================================
 	al_set_window_title(display, "Image Compressor & Descompressor");
 	al_set_display_icon(display, logo);
 
+	al_clear_to_color(al_map_rgb(0, 0, 0));
 
-	drawTales(imageArray);
+	drawTales(talesArray);
 	al_flip_display();
 	al_rest(5.0);
 
 
 
-	/*al_register_event_source(event_queue, al_get_display_event_source(display));
+	al_register_event_source(event_queue, al_get_display_event_source(display));
 	al_register_event_source(event_queue, al_get_mouse_event_source());
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
 
@@ -87,88 +100,37 @@ int main()
 		ALLEGRO_EVENT ev;
 		al_wait_for_event(event_queue, &ev);
 
-		if (ev.type == ALLEGRO_EVENT_TIMER)
+		switch (ev.type)
 		{
-			if (key_pressed[KEY_UP] && cuadradito_y >= MOVE_RATE)
-				cuadradito_y -= MOVE_RATE;
-
-			if (key_pressed[KEY_DOWN] && cuadradito_y <= SCREEN_H - CUADRADITO_SIZE - MOVE_RATE)
-				cuadradito_y += MOVE_RATE;
-
-			if (key_pressed[KEY_LEFT] && cuadradito_x >= MOVE_RATE)
-				cuadradito_x -= MOVE_RATE;
-
-			if (key_pressed[KEY_RIGHT] && cuadradito_x <= SCREEN_W - CUADRADITO_SIZE - MOVE_RATE)
-				cuadradito_x += MOVE_RATE;
-
-			redraw = true;
-		}
-
-		else if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
+		case ALLEGRO_EVENT_DISPLAY_CLOSE:
 			do_exit = true;
-
-		else if (ev.type == ALLEGRO_EVENT_KEY_DOWN)
-		{
-			switch (ev.keyboard.keycode) {
-			case ALLEGRO_KEY_UP:
-				key_pressed[KEY_UP] = true;
-				break;
-
-			case ALLEGRO_KEY_DOWN:
-				key_pressed[KEY_DOWN] = true;
-				break;
-
-			case ALLEGRO_KEY_LEFT:
-				key_pressed[KEY_LEFT] = true;
-				break;
-
-			case ALLEGRO_KEY_RIGHT:
-				key_pressed[KEY_RIGHT] = true;
-				break;
-			}
-		}
-
-		else if (ev.type == ALLEGRO_EVENT_KEY_UP)
-		{
-			switch (ev.keyboard.keycode) {
-			case ALLEGRO_KEY_UP:
-				key_pressed[KEY_UP] = false;
-				break;
-
-			case ALLEGRO_KEY_DOWN:
-				key_pressed[KEY_DOWN] = false;
-				break;
-
-			case ALLEGRO_KEY_LEFT:
-				key_pressed[KEY_LEFT] = false;
-				break;
-
-			case ALLEGRO_KEY_RIGHT:
-				key_pressed[KEY_RIGHT] = false;
-				break;
-
-			case ALLEGRO_KEY_ESCAPE:
+			break;
+		case ALLEGRO_EVENT_KEY_DOWN:
+			break;
+		case ALLEGRO_EVENT_KEY_UP:
+			if (ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
 				do_exit = true;
-				break;
-			}
+			else
+				keyDispacher(ev);
+			break;
 		}
-
 		if (redraw && al_is_event_queue_empty(event_queue)) {
 
 			redraw = false;
 			al_clear_to_color(al_map_rgb(0, 0, 0));
-			al_draw_bitmap(cuadradito, cuadradito_x, cuadradito_y, 0);
+			drawTales(talesArray);
 			al_flip_display();
 		}
 	}
-*/
+
+//================================================================================================================================================
 
 	al_destroy_display(display);
 	al_destroy_bitmap(logo);
 	al_destroy_event_queue(event_queue);
 
 	for (unsigned int i = 0; i < TALES_MAX; i++){
-		al_destroy_bitmap(imageArray[i]);
+		al_destroy_bitmap(talesArray[i]);
 	}
 
 	allegroShutdown();
@@ -181,6 +143,48 @@ int main()
 void keyDispacher(ALLEGRO_EVENT ev)
 {
 	
+	switch (ev.keyboard.keycode) {
+	case ALLEGRO_KEY_A:
+
+		break;
+	case ALLEGRO_KEY_N:
+
+		break;
+	case ALLEGRO_KEY_RIGHT:
+
+		break;
+	case ALLEGRO_KEY_LEFT:
+
+		break;
+	case ALLEGRO_KEY_1:
+			
+		break;
+	case ALLEGRO_KEY_2:
+
+		break;
+	case ALLEGRO_KEY_3:
+
+		break;
+	case ALLEGRO_KEY_4:
+
+		break;
+	case ALLEGRO_KEY_5:
+
+		break;
+	case ALLEGRO_KEY_6:
+
+		break;
+	case ALLEGRO_KEY_7:
+
+		break;
+	case ALLEGRO_KEY_8:
+
+		break;
+	case ALLEGRO_KEY_9:
+
+		break;
+	}
+
 
 }
 
@@ -254,11 +258,7 @@ void drawTales(ALLEGRO_BITMAP **talesArray)
 				al_get_bitmap_width(talesArray[taleNumber]), al_get_bitmap_height(talesArray[taleNumber]),
 				((SCREEN_W / 4) * (i)) - (TALES_W / 2),
 				((SCREEN_H / 4) * (j)) - (TALES_H / 2),
-				TALES_W, TALES_H, 0);
-
-			al_flip_display();
-
-			
+				TALES_W, TALES_H, 0);		
 		}
 
 		taleNumber--;
