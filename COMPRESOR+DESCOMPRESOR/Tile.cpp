@@ -24,7 +24,7 @@ bool Tile::isSelected()
 
 }
 
-string Tile::getFilename()
+string Tile::getImagePath()
 {
 
 }

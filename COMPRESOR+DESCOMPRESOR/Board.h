@@ -19,3 +19,6 @@ public:
 	void selectTile(unsigned int filename);
 	List<Tile> getTiles(); //ver si tiene que devolver List<Tile> o un List<Tile>*
 };
+
+
+//hacer un puntero de la primera imagen de las 9 que se muestran

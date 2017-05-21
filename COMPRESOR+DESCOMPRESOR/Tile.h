@@ -8,7 +8,7 @@ using namespace std;
 class Tile
 {
 private:
-	string filename;
+	string imagePath; //guardar el path entero de una imagen
 	bool selected;
 
 public:
@@ -16,6 +16,7 @@ public:
 	~Tile();
 	void toggleSelection();
 	bool isSelected();
-	string getFilename();
+	string getImagePath();
 	void draw(unsigned int x0, unsigned int y0); //funcion que dibuja con allegro UN TILE (una imagen)
 }
+

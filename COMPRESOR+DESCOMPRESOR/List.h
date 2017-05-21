@@ -11,13 +11,14 @@
 3 |
 */
 
+//doblemente enlazada
 template<typename Type> class List //ADAPTAR A LO QUE NECESITAMOS
 {
 private:
 	template<typename Type> struct nodo
 	{
 		Type data; 
-		nodo* next_node; 
+		nodo* next_node; /
 	}
 	nodo<Type>* firstNode; //NULL
 	nodo<Type>* lastNode; //NULL
