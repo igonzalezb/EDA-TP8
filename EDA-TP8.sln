@@ -7,7 +7,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ALLEGRO", "ALLEGRO\ALLEGRO.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "COMPRESOR+DESCOMPRESOR", "COMPRESOR+DESCOMPRESOR\COMPRESOR+DESCOMPRESOR.vcxproj", "{8389F627-D05C-4B37-B1DE-ECC1D85E6502}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "filesystem_boost", "..\boost_filesystem\boost_filesystem.vcxproj", "{81B77B29-B23E-4157-B6B8-BEB1E21F727E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "filesystem_boost", "boost_filesystem\boost_filesystem.vcxproj", "{81B77B29-B23E-4157-B6B8-BEB1E21F727E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
