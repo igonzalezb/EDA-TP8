@@ -4,12 +4,19 @@
 
 Board::Board() 
 {
+	//Crear lista
+	
+
 	PageNumber = 0;
+	PageMax = Tiles.getListSize() / 9;
+	if (Tiles.getListSize() % 9 >= 0)
+		PageMax++;
 	loadBitmaps();
 }
 
 Board::~Board()
 {
+	removeBitmaps();
 	
 }
 
@@ -20,18 +27,26 @@ void Board::addTile(Tile element)
 
 void Board::nextPage() 
 {
-	PageNumber++;
-	Tiles.moveToPos(9*PageNumber);
-	removeBitmaps();
-	loadBitmaps();
+	if (PageNumber < PageMax)
+	{
+		PageNumber++;
+		Tiles.moveToPos(9 * PageNumber);
+		removeBitmaps();
+		loadBitmaps();
+	}
+	
 }
 
 void Board::previousPage() 
 {
-	PageNumber--;
-	Tiles.moveToPos(9 * PageNumber);
-	removeBitmaps();
-	loadBitmaps();
+	if (PageNumber > 0)
+	{
+		PageNumber--;
+		Tiles.moveToPos(9 * PageNumber);
+		removeBitmaps();
+		loadBitmaps();
+	}
+	
 }
 
 void Board::loadBitmaps()

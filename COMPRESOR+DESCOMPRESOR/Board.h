@@ -18,12 +18,6 @@
 
 class Board
 {
-private:
-	List<Tile> Tiles;	//Creo una lista tiles, en la que cada nodo contiene un objeto Tile.
-	unsigned int PageNumber;
-	ALLEGRO_BITMAP *tilesArray[TILES_MAX];
-	ALLEGRO_FONT *font = NULL;
-
 public:
 	Board();
 	~Board();
@@ -34,6 +28,13 @@ public:
 	void selectTile(int TileNum); //cambia el estado de las seleccionadas
 	void loadBitmaps();
 	void removeBitmaps();
+
+private:
+	List<Tile> Tiles;	//Creo una lista tiles, en la que cada nodo contiene un objeto Tile.
+	unsigned int PageNumber;
+	unsigned int PageMax;
+	ALLEGRO_BITMAP *tilesArray[TILES_MAX];
+	ALLEGRO_FONT *font = NULL;
 };
 
 
