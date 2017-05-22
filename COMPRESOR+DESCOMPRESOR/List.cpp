@@ -1,13 +1,12 @@
 
 #include "List.h"
 
-template <typename Type>
-void List<type>::List()
+template <typename Type> 
+List<type>::List()
 {
 
 }
 
-template <typename Type> //VER
 void List<type>::addElement(type e, ulong pos)
 {
 	if (pos <= size)

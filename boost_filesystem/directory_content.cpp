@@ -1,9 +1,10 @@
+
 #include "filesystem_header.h"
 
 
 int see_dirContent(const char* dir)
 {
-	path p(dir); 	
+	path p(dir); 		//crea path con la dir que se recibe por linea de comandos
 		if (exists(p)) //verifica que la ruta este en el sistema de archivos
 		{
 			if (is_regular_file(p)) //mismo directory_sort

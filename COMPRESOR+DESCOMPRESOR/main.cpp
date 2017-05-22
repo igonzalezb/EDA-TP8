@@ -16,13 +16,20 @@ is_regular_file // devuelve true si es un regular file o directory
 
 #include "Board.h"
 #include "Tile.h"
+#include "paths.h"
 
-int main(void)
+int main(int argc, char *argv[])
 {
 	//EDAlist<int>li;
 	//EDAlis<double>la;
 
-	Board B;
-	
-	B.getTiles().addElement(pos, 0);
+	//llamar con arg de linea de comando a funcion en paths
+
+	Board b;
+	Paths p;
+	p.saveDirPngs(argv[1]); //recibir tambien la lista. dir es un const char*
+
+
+
+	//B.getTiles().addElement(pos, 0); //en pos, en vez de pos se le pasa un Tile
 }

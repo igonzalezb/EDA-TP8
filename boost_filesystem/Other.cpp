@@ -21,7 +21,10 @@ e {ruta}/imagenes/hola.txt, aunque {ruta}/imagenes/hola.txt no exista es lo que 
 int createDir(const char* dir) {
 	return create_directory(dir);
 }//puede fallar si la carpeta esta protegida, por permisos
+
+
 #define _CRT_SECURE_NO_WARNINGS
+
 int seeLastWritten(const char* dir) {
 	char storeDate[32];
 

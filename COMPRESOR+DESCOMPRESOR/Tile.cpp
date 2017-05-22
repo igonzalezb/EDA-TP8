@@ -3,9 +3,10 @@
 
 // COMPLETAR FUNCIONES
 
-Tile::Tile()
+Tile::Tile(string path)
 {
-	//CONSTRUCTOR
+	imagePath = path;
+	selected = false;
 }
 
 Tile::~Tile()
@@ -16,17 +17,17 @@ Tile::~Tile()
 
 void Tile::toggleSelection()
 {
-
+	selected != selected;
 }
 
 bool Tile::isSelected()
 {
-
+	return selected;
 }
 
 string Tile::getImagePath()
 {
-
+	return "prueba"; //sacar esto
 }
 
 void Tile::draw (unsigned int x0, unsigned int y0) //funcion que dibuja con allegro UN TILE (una imagen)

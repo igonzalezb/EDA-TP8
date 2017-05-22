@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
 		 fileSize(argv[1]);
 		break;
 	case 3:
-		 see_dirContent(argv[1]);
+		 see_dirContent(argv[1]); //saveDirPngs
 		break;
 	case 4:
 		 sort_directories(argv[1]);

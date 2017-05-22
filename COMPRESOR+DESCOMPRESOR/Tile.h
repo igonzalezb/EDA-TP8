@@ -12,11 +12,11 @@ private:
 	bool selected;
 
 public:
-	Tile(); 
+	Tile(string path); 
 	~Tile();
 	void toggleSelection();
 	bool isSelected();
 	string getImagePath();
 	void draw(unsigned int x0, unsigned int y0); //funcion que dibuja con allegro UN TILE (una imagen)
-}
+};
 

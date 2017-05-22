@@ -8,17 +8,23 @@ private:
 	struct nodo
 	{
 		nodo* next_node; //linita
+		nodo* previous_node;
 		Type data;		//cajita 
 	}
 	nodo<Type> firstNode;
 	nodo<Type> lastNode;
 	unsigned long size;
 public:
-	void addElement(Type e, ulong pos);
-	Type removeElement(ulong pos);
-	Type getElement(ulong pos);
+	List();
+	void addElement(Type e, unsigned long pos);
+	Type removeElement(unsigned long pos);
+	Type getElement(unsigned long pos);
+
+
+
 
 	//posicion
+	/*
 	0 |
 		| A |
 		1 |
@@ -26,6 +32,7 @@ public:
 		2 |
 		| C |
 		3 |
+		*/
 
 
 };
