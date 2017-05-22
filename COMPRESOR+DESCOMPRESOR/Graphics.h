@@ -22,9 +22,8 @@ public:
 	Graphic();
 	~Graphic();
 	void loadBitmaps(int i, const char *path);
-	void drawTiles(); //INAKI llama a los draw de cada tile
+	void drawTiles(int i, int j, int tileNumber, bool isSelected);
 	void removeBitmaps();
-	void selectTile(int j, int i, bool isSelected);
 private:
 	ALLEGRO_BITMAP *tilesArray[TILES_MAX];
 	ALLEGRO_FONT *font = NULL;
