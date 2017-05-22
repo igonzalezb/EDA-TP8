@@ -8,9 +8,8 @@
 #include <boost/filesystem.hpp>
 #include <boost/lexical_cast.hpp>
 
-#include "Board.h"
 #include "List.h"
-
+#include "Tile.h"
 
 using namespace std;
 using namespace boost::filesystem;

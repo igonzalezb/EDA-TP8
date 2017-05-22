@@ -8,10 +8,11 @@ using namespace std;
 class Tile
 {
 public:
-
+	Tile() { ; }
 	Tile(string path); 
 	~Tile();
-
+	void select();
+	void deselect();
 	void toggleSelection();
 	bool isSelected();
 	string getFilePath();
@@ -19,7 +20,6 @@ public:
 
 
 private:
-
 	string filePath;
 	bool selected;
 

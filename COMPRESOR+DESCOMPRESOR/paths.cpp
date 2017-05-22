@@ -3,11 +3,6 @@
 #include "Tile.h"
 #include "List.h" //Ver
 
-Paths::Paths(List* tiles)
-{
-
-}
-
 Paths::Paths(List<Tile>* imageList)
 {
 	oldExtension = ".png";

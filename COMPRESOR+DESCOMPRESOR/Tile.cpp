@@ -13,6 +13,16 @@ Tile::~Tile()
 
 }
 
+void Tile::select()
+{
+	selected = true;
+}
+
+void Tile::deselect()
+{
+	selected = false;
+}
+
 
 void Tile::toggleSelection()
 {
@@ -21,11 +31,7 @@ void Tile::toggleSelection()
 
 bool Tile::isSelected()
 {
-	if (selected == true)
-	{
-		return true;
-	}
-	return false;
+	return selected;
 }
 
 string Tile::getFilePath()

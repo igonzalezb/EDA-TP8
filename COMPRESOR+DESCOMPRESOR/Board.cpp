@@ -8,10 +8,12 @@ Board::Board(List<Tile> *Tiles)
 
 	PageNumber = 0;
 	PageMax = Tiles->getListSize() / TILES_MAX;
+	PageMax--;
+
 	if (Tiles->getListSize() % TILES_MAX >= 0)
 		PageMax++;
 
-	removeNonSquares();
+	//removeNonSquares();
 
 	loadBitmaps();
 	drawTiles();
@@ -23,7 +25,7 @@ void Board::nextPage()
 	{
 		PageNumber++;
 		Tiles->moveToPos(TILES_MAX * PageNumber);
-		graphics.removeBitmaps();
+		removeBitmaps();
 		loadBitmaps();
 	}
 	
@@ -35,24 +37,20 @@ void Board::previousPage()
 	{
 		PageNumber--;
 		Tiles->moveToPos(PageNumber * TILES_MAX);
-		graphics.removeBitmaps();
+		removeBitmaps();
 		loadBitmaps();
 	}
 	
 }
 
-
-
-
-
 void Board::keyDispacher(ALLEGRO_EVENT ev)
 {
 	switch (ev.keyboard.keycode) {
 	case ALLEGRO_KEY_A:
-		for (int i = (PageNumber * TILES_MAX); i < (TILES_MAX + (PageNumber * TILES_MAX)); i++) { selectTile(i); }
+		for (unsigned int i = (PageNumber * TILES_MAX); i < (TILES_MAX + (PageNumber * TILES_MAX)); i++) { selectTile(i); }
 		break;
 	case ALLEGRO_KEY_N:
-		for (int i = (PageNumber * TILES_MAX); i < (TILES_MAX + (PageNumber * TILES_MAX)); i++) { deselectTile(i); }
+		for (unsigned int i = (PageNumber * TILES_MAX); i < (TILES_MAX + (PageNumber * TILES_MAX)); i++) { deselectTile(i); }
 		break;
 	case ALLEGRO_KEY_RIGHT:
 		nextPage();
@@ -96,12 +94,14 @@ void Board::keyDispacher(ALLEGRO_EVENT ev)
 
 void Board::drawTiles()
 {
+	graphics.cleanScreen();
 	int tileNumber = 0;
 
-	for (int j = 1; (j < 6) && (tileNumber < TILES_MAX); j++, j++, tileNumber++) {
+	for (int j = 1; (j < 6) && (tileNumber < TILES_MAX) && (((PageNumber * TILES_MAX) + tileNumber) < Tiles->getListSize()); j++, j++, tileNumber++) {
 
-		for (int i = 1; (i < 6) && (tileNumber < TILES_MAX); i++, i++, tileNumber++) {
+		for (int i = 1; (i < 6) && (tileNumber < TILES_MAX) && (((PageNumber * TILES_MAX) + tileNumber) < Tiles->getListSize()); i++, i++, tileNumber++) {
 
+			printf("isSelected = %d\n", Tiles->getElement((PageNumber * TILES_MAX) + tileNumber).isSelected());
 			graphics.drawTiles(i, j, tileNumber, Tiles->getElement((PageNumber * TILES_MAX) + tileNumber).isSelected());
 
 		}
@@ -120,30 +120,23 @@ void Board::toggleTile(int TileNum)
 
 void Board::selectTile(int TileNum)
 {
-	Tiles->getElement(TileNum).isSelected = true;
+	Tiles->getElement(TileNum).select();
 }
 
 void Board::deselectTile(int TileNum)
 {
-	Tiles->getElement(TileNum).isSelected = false;
+	Tiles->getElement(TileNum).deselect();
 }
-
 
 void Board::loadBitmaps()
 {
-	for (unsigned int i = 0; i < TILES_MAX; i++)
+	for (unsigned int i = 0; (i < TILES_MAX) && (((PageNumber * TILES_MAX) + i) < Tiles->getListSize()); i++)
 	{
-		string s = Tiles->getElement(i *PageNumber).getFilePath();
+		string s = Tiles->getElement((PageNumber * TILES_MAX) + i).getFilePath();
 		const char *path = s.c_str();
 		graphics.loadBitmaps(i, path);
 
 	}
-}
-
-
-unsigned int Board::getPageNumber()
-{
-	return PageNumber;
 }
 
 void Board::removeNonSquares()
@@ -163,11 +156,13 @@ void Board::removeNonSquares()
 	}
 }
 
+void Board::removeBitmaps()
+{
+	for (unsigned int i = 0; (i < TILES_MAX) && (((PageNumber * TILES_MAX) + i) < Tiles->getListSize()); i++) {
+		graphics.removeBitmaps(i);
+	}
+}
+
 Board::~Board()
 {
 }
-
-//void Board::addTile(Tile element)
-//{
-//	Tiles.addElement(element);
-//}

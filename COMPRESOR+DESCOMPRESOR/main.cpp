@@ -11,13 +11,9 @@ is_regular_file // devuelve true si es un regular file o directory
 */
 
 
-//char a[50] // memoria contigua, se puede acceder a cualquier elementos-> acceso directo
-
-
 #include "Board.h"
 #include "Tile.h"
 #include "paths.h"
-#include "Graphics.h"
 
 bool allegroStartup(void);
 void allegroShutdown(void);
@@ -27,17 +23,17 @@ int main(int argc, char *argv[])
 	ALLEGRO_DISPLAY *display = NULL;
 	ALLEGRO_BITMAP *logo = NULL;
 	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
-
-	List<Tile> imageList;
-	Paths p(&imageList);
-	p.saveDirPngs(argv[1]);
-
+	
 	if (allegroStartup()) {
 		fprintf(stderr, "Error Initilizing Allegro\n");
 		return EXIT_FAILURE;
 	}
-
-	Board b(&imageList);
+	
+	List<Tile> *imageList;
+	imageList = new List<Tile>;
+	
+	Paths *p = new Paths(imageList);
+	p->saveDirPngs(argv[1]);
 
 //===========================================================================================================
 	display = al_create_display(SCREEN_W, SCREEN_H);
@@ -65,6 +61,7 @@ int main(int argc, char *argv[])
 	al_set_window_title(display, "Image Compressor & Descompressor");
 	al_set_display_icon(display, logo);
 //===========================================================================================================
+	Board *b = new Board(imageList);
 
 	al_register_event_source(event_queue, al_get_display_event_source(display));
 	al_register_event_source(event_queue, al_get_mouse_event_source());
@@ -88,13 +85,16 @@ int main(int argc, char *argv[])
 			if (ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
 				do_exit = true;
 			else
-				b.keyDispacher(ev);
+				b->keyDispacher(ev);
 			break;
 		}
 	}
 
 	//================================================================================================================================================
-
+	
+	delete imageList;
+	delete p;
+	delete b;
 	al_destroy_display(display);
 	al_destroy_bitmap(logo);
 	al_destroy_event_queue(event_queue);

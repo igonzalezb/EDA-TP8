@@ -13,7 +13,7 @@ Graphic::Graphic()
 		fprintf(stderr, "failed to create background!\n");
 	}
 
-	al_clear_to_color(al_map_rgb(0, 0, 0));
+	al_clear_to_color(al_map_rgb(0.0, 0.0, 0.0));
 
 	al_draw_scaled_bitmap(background, 0.0, 0.0,
 		al_get_bitmap_width(background), al_get_bitmap_height(background),
@@ -51,13 +51,19 @@ void Graphic::drawTiles(int i, int j, int tileNumber, bool isSelected)
 		al_draw_rectangle(((SCREEN_W / 6) * (i)) - (TILES_W / 2), ((SCREEN_H / 6) * (j)) - (TILES_H / 2),
 		((SCREEN_W / 6) * (i)) - (TILES_W / 2) + TILES_W, ((SCREEN_H / 6) * (j)) - (TILES_H / 2) + TILES_H,
 			al_map_rgb(0.0, 0.0, 0.0), 5.0);
-	al_flip_display();
 }
-void Graphic::removeBitmaps()
+void Graphic::removeBitmaps(int i)
 {
-	for (unsigned int i = 0; i < TILES_MAX; i++) {
-		al_destroy_bitmap(tilesArray[i]);
-	}
+	al_destroy_bitmap(tilesArray[i]);
+}
+
+void Graphic::cleanScreen()
+{
+	al_clear_to_color(al_map_rgb(0.0, 0.0, 0.0));
+
+	al_draw_scaled_bitmap(background, 0.0, 0.0,
+		al_get_bitmap_width(background), al_get_bitmap_height(background),
+		0.0, 0.0, SCREEN_W, SCREEN_H, 0);
 }
 
 Graphic::~Graphic()

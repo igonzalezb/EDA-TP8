@@ -10,7 +10,6 @@ class Board
 public:
 	Board(List<Tile> *Tiles);
 	~Board();
-	//void addTile(Tile element);
 	void nextPage();
 	void previousPage();
 	void loadBitmaps();
@@ -18,12 +17,12 @@ public:
 	void selectTile(int TileNum);
 	void deselectTile(int TileNum);
 	void removeNonSquares();
-	unsigned int getPageNumber();
 	void keyDispacher(ALLEGRO_EVENT ev);
 	void drawTiles();
+	void removeBitmaps();
 
 private:
-	List<Tile> *Tiles;	//Creo una lista tiles, en la que cada nodo contiene un objeto Tile.
+	List<Tile> *Tiles = NULL;	//Creo una lista tiles, en la que cada nodo contiene un objeto Tile.
 	unsigned int PageNumber;
 	unsigned int PageMax;
 	Graphic graphics;
