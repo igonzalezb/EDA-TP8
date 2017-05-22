@@ -5,6 +5,12 @@
 #include "Tile.h"
 
 
+Board b; (aca adentro List Tiles)
+path p;
+b.Tiles
+
+
+
 class Board
 {
 	
