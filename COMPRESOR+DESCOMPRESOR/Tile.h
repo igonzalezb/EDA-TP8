@@ -16,7 +16,6 @@ public:
 	bool isSelected();
 	string getFilePath();
 
-	void draw(unsigned int x0, unsigned int y0);  //INAKI
 
 
 private:

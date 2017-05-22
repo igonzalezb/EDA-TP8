@@ -17,23 +17,24 @@ void Board::addTile(Tile element)
 	Tiles.addElement(element);
 }
 
-void Board::nextPage()
+void Board::nextPage() 
 {
 	PageNumber++;
+
+	Tiles.moveToPos(9*PageNumber);
+
 }
 
-void Board::previousPage()
+void Board::previousPage() 
 {
 	PageNumber--;
+
+	Tiles.moveToPos(9 * PageNumber);
 }
 
-void Board::draw() //hago el draw de cada uno de los elementos de la lista
+void Board::draw(List<Tile> Tile) 
 {
 
-	for (int i = 0; i < Tiles.getListSize(); i++)
-	{
-		//Tiles.getElement(i).draw(x0;y0);
-	}
 
 }
 
