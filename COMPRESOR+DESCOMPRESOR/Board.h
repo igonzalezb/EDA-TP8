@@ -16,6 +16,12 @@
 #define TILES_H		120.0
 
 
+Board b; (aca adentro List Tiles)
+path p;
+b.Tiles
+
+
+
 class Board
 {
 private:

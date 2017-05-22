@@ -1,11 +1,16 @@
 
 #include "paths.h"
 #include "Tile.h"
+#include "List.h" //Ver
 
+Paths::Paths(List* tiles)
+{
+
+}
 
 void Paths::saveDirPngs(const char* dir) //recibir tambien la lista
 {
-	path p(dir); 		//crea path con la dir que se recibe por linea de comandos
+	path p(dir); 	//crea path con la dir que se recibe por linea de comandos
 	if (exists(p)) //verifica que la ruta este en el sistema de archivos
 	{
 		if (is_directory(p))     // is p a directory?
@@ -68,8 +73,8 @@ void Paths::replaceExtension(string filePath, string oldExtension, string newExt
 	if (found != std::string::npos)
 	{
 		str.replace(found, strToFind.length(), strThatReplaces);
-		cout << ".png found at: " << found << '\n';
-		cout << str << '\n';
+		//cout << ".png found at: " << found << '\n';
+		//cout << str << '\n';
 		getchar();
 	}
 }
