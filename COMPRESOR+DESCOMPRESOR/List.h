@@ -1,38 +1,61 @@
 #pragma once
 
-template<typename Type> class List //ADAPTAR A LO QUE NECESITAMOS
+
+template <typename Type>
+class Node {
+
+public:
+
+	Type element; // Data del nodo
+
+	Node * next; // Puntero al nodo siguiente
+	Node * prev; // Puntero al nodo anterior
+
+	Node(const Type& element, Node * prev, Node * next);
+
+	Node(Node * prev = NULL, Node * next = NULL);
+
+};
+
+
+
+template<typename Type> class List
 {
 private:
 
-	template<typename Type>
-	struct nodo
-	{
-		nodo* next_node; //linita
-		nodo* previous_node;
-		Type data;		//cajita 
-	}
-	nodo<Type> firstNode;
-	nodo<Type> lastNode;
-	unsigned long size;
+	Node<Type>* firstNode;
+	Node<Type>* currentNode;
+	Node<Type>* lastNode;
+
+	int listSize;
+
 public:
 	List();
-	void addElement(Type e, unsigned long pos);
-	Type removeElement(unsigned long pos);
-	Type getElement(unsigned long pos);
-
-
-
-
-	//posicion
-	/*
-	0 |
-		| A |
-		1 |
-		| B |
-		2 |
-		| C |
-		3 |
-		*/
-
+	~List();
+	int getListSize();
+	void addElement(Type data);
+	void removeElement(int pos);
+	Type getElement(int pos);
+	bool moveToPos(int pos);
 
 };
+
+
+
+
+template<typename Type>
+inline Node<Type>::Node(const Type & element, Node * prev, Node * next)
+{
+	this->element = element;
+	this->prev = prev;
+	this->next = next;
+
+}
+
+template<typename Type>
+inline Node<Type>::Node(Node * prev, Node * next)
+{
+	this->prev = prev;
+	this->next = next;
+}
+

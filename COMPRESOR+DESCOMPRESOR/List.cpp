@@ -1,40 +1,92 @@
-
 #include "List.h"
 
 template <typename Type> 
-List<type>::List()
+List<Type>::List()
 {
+
+	currentNode = firstNode = new Node<Type>;
+	lastNode = new Node<Type>(firstNode);
+	firstNode->next = lastNode;
+
+	listSize = 0;
 
 }
 
-void List<type>::addElement(type e, ulong pos)
+
+
+template<typename Type>
+List<Type>::~List()
 {
-	if (pos <= size)
+	while (firstNode == lastNode) 
 	{
-		if (firstNode == NULL)
-		{
-			node<type>* tempNode = new Node;
-			tempNode.data = e;
-			tempNode.nextNode = NULL;
-			firstNode = tempNode;
-			lastNode = tempNode;
-		}
+		currentNode = firstNode;
+		delete currentNode;
+		firstNode = firstNode->next;
 	}
-	else if (pos > 0)
-	{
-		nodo<type>* tempNode = lastNode;
-		for (int i = 1; i < pos; i++)
-			currentNode = currentNode->next;
-		node<type>* tempNode = new node;
-		tempNode->nextNode = currentNode->next;
-		currentNode->nextNode = tempnode;
-		tempNode->data = e;
-		if (pos == size)
-			lastNode = tempNode;
-	}
-	else
+}
+
+
+
+template<typename Type>
+int List<Type>::getListSize()
+{
+	return listSize;
+}
+
+
+
+template<typename Type>
+void List<Type>::addElement(Type element)
+{
+	lastNode->prev = lastNode->prev->next = new Node<Type>(element, lastNode->prev, NULL);
+	listSize++;
+}
+
+
+
+template<typename Type>
+void List<Type>::removeElement(int pos)
+{
+	if (moveToPos(pos) == true)
 	{
 
+		currentNode->prev->next = currentNode->next;
+		currentNode->next->prev = currentNode->prev;
+
+		listSize--;
 	}
-	size++;
+}
+
+
+
+template<typename Type>
+Type List<Type>::getElement(int pos)
+{
+	if (moveToPos(pos) == true)
+	{
+		Type elemento = currentNode->next->element;
+
+		return elemento;
+	}
+}
+
+
+
+template<typename Type>
+bool List<Type>::moveToPos(int pos)
+{
+	if ((pos < 0) || (pos > listSize))
+	{
+		printf("El elemento que se quiere acceder no existe en la lista");
+		return false;
+	}
+
+	currentNode = firstNode;
+
+	for (int i = 0; i < pos; i++)
+	{
+		currentNode = currentNode->next;
+	}
+
+	return true;
 }
