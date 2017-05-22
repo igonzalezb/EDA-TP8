@@ -15,9 +15,11 @@
 using namespace std;
 using namespace boost::filesystem;
 
+
 class Paths
 {
 public:
+	Paths(List<Tile> *imageList);
 	void saveDirPngs(const char* dir); //Recibir lista
 	//bool isPng(string path);
 	bool Paths::isOldExtension(string filePath, string oldExtension); //EN REMPLAZO DE IS PNG. ASI SIRVE PARA COMPRESOR Y DESCOMPRESOR, SEGUN LA EXTENSION QUE PASAMOS
@@ -35,6 +37,6 @@ public:
 private:
 	string oldExtension; //En Compressor se inicializa en ".png" y en Decompressor se inicializa en ".vim"
 	string newExtension; //En Compressor se inicializa en ".vim" y en Decompressor se inicializa en ".png"
-	
+	List<Tile> *imageList;
 	//Tile* tilePtr;
 };

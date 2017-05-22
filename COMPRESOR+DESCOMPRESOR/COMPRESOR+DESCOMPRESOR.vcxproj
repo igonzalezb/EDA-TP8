@@ -155,6 +155,7 @@
   <ItemGroup>
     <ClInclude Include="Board.h" />
     <ClInclude Include="Compressor.h" />
+    <ClInclude Include="Graphics.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="paths.h" />
@@ -164,6 +165,7 @@
     <ClCompile Include="0BORRADOR_COMENTARIOS.cpp" />
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="Compressor.cpp" />
+    <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="List.cpp" />
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="main.cpp" />
