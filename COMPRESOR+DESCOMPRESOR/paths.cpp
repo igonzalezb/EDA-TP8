@@ -3,6 +3,13 @@
 #include "Tile.h"
 
 
+Paths::Paths(List<Tile>* imageList)
+{
+	oldExtension = ".png";
+	newExtension = ".vim";
+	this->imageList = imageList;
+}
+
 void Paths::saveDirPngs(const char* dir) //recibir tambien la lista
 {
 	path p(dir); 		//crea path con la dir que se recibe por linea de comandos
@@ -14,11 +21,8 @@ void Paths::saveDirPngs(const char* dir) //recibir tambien la lista
 			{
 				if (isOldExtension(itr->path().string(), oldExtension))
 				{
-					Tile t(itr->path().string()); //VER ESTA PARTE, COMO HACER EL addElement!!!!!!!!!!!!!!!!!!!!!
-
-					//B.addElement(t);
-					//cout << itr->path().string() << ' '; // display filename only
-					//cout << '\n';
+					Tile t(itr->path().string());
+					imageList->addElement(t);
 				}
 			}
 		}

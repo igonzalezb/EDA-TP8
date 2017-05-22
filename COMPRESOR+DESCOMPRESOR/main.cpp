@@ -17,76 +17,92 @@ is_regular_file // devuelve true si es un regular file o directory
 #include "Board.h"
 #include "Tile.h"
 #include "paths.h"
+#include "Graphics.h"
 
 bool allegroStartup(void);
 void allegroShutdown(void);
-void keyDispacher(ALLEGRO_EVENT ev);
 
 int main(int argc, char *argv[])
 {
-	//EDAlist<int>li;
-	//EDAlis<double>la;
-	Paths p;
-	Board b;
-	
-	p.saveDirPngs(argv[1]); //recibir tambien la lista. dir es un const char*
+	ALLEGRO_DISPLAY *display = NULL;
+	ALLEGRO_BITMAP *logo = NULL;
+	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 
-	//B.getTiles().addElement(pos, 0); //en pos, en vez de pos se le pasa un Tile
+	List<Tile> imageList;
+	Paths p(&imageList);
+	p.saveDirPngs(argv[1]);
 
-
-
-
-
-}
-
-
-
-void keyDispacher(ALLEGRO_EVENT ev)
-{
-	switch (ev.keyboard.keycode) {
-	case ALLEGRO_KEY_A:
-		for (int j = 1; (j < 6); j++, j++) { for (int i = 1; (i < 6); i++, i++) { selectTale(i, j, true); } }
-		break;
-	case ALLEGRO_KEY_N:
-		for (int j = 1; (j < 6); j++, j++) { for (int i = 1; (i < 6); i++, i++) { selectTale(i, j, false); } }
-		break;
-	case ALLEGRO_KEY_RIGHT:
-
-		break;
-	case ALLEGRO_KEY_LEFT:
-
-		break;
-	case ALLEGRO_KEY_1:
-		selectTale(1, 1, true);
-		break;
-	case ALLEGRO_KEY_2:
-		selectTale(1, 3, true);
-		break;
-	case ALLEGRO_KEY_3:
-		selectTale(1, 5, true);
-		break;
-	case ALLEGRO_KEY_4:
-		selectTale(3, 1, true);
-		break;
-	case ALLEGRO_KEY_5:
-		selectTale(3, 3, true);
-		break;
-	case ALLEGRO_KEY_6:
-		selectTale(3, 5, true);
-		break;
-	case ALLEGRO_KEY_7:
-		selectTale(5, 1, true);
-		break;
-	case ALLEGRO_KEY_8:
-		selectTale(5, 3, true);
-		break;
-	case ALLEGRO_KEY_9:
-		selectTale(5, 5, true);
-		break;
+	if (allegroStartup()) {
+		fprintf(stderr, "Error Initilizing Allegro\n");
+		return EXIT_FAILURE;
 	}
 
+	Board b(&imageList);
 
+//===========================================================================================================
+	display = al_create_display(SCREEN_W, SCREEN_H);
+	if (!display) {
+		fprintf(stderr, "failed to create display!\n");
+		allegroShutdown();
+		return EXIT_FAILURE;
+	}
+
+	logo = al_load_bitmap("resources\\logo.png");
+	if (!logo) {
+		fprintf(stderr, "failed to create logo!\n");
+		//////////lo qu dsjfnjsd
+	}
+
+	event_queue = al_create_event_queue();
+	if (!event_queue) {
+		fprintf(stderr, "failed to create event queue!\n");
+		al_destroy_display(display);
+		al_destroy_bitmap(logo);
+		allegroShutdown();
+		return EXIT_FAILURE;
+	}
+
+	al_set_window_title(display, "Image Compressor & Descompressor");
+	al_set_display_icon(display, logo);
+//===========================================================================================================
+
+	al_register_event_source(event_queue, al_get_display_event_source(display));
+	al_register_event_source(event_queue, al_get_mouse_event_source());
+	al_register_event_source(event_queue, al_get_keyboard_event_source());
+
+	bool do_exit = false, redraw = true;
+
+	while (!do_exit)
+	{
+		ALLEGRO_EVENT ev;
+		al_wait_for_event(event_queue, &ev);
+
+		switch (ev.type)
+		{
+		case ALLEGRO_EVENT_DISPLAY_CLOSE:
+			do_exit = true;
+			break;
+		case ALLEGRO_EVENT_KEY_DOWN:
+			break;
+		case ALLEGRO_EVENT_KEY_UP:
+			if (ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
+				do_exit = true;
+			else
+				b.keyDispacher(ev);
+			break;
+		}
+	}
+
+	//================================================================================================================================================
+
+	al_destroy_display(display);
+	al_destroy_bitmap(logo);
+	al_destroy_event_queue(event_queue);
+	allegroShutdown();
+	
+	return EXIT_SUCCESS;
 }
+
 
 bool allegroStartup(void)
 {
