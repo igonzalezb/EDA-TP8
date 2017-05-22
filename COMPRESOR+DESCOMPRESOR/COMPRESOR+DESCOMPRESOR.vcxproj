@@ -145,6 +145,7 @@
     <ClInclude Include="Board.h" />
     <ClInclude Include="Compressor.h" />
     <ClInclude Include="List.h" />
+    <ClInclude Include="lodepng.h" />
     <ClInclude Include="paths.h" />
     <ClInclude Include="Tile.h" />
   </ItemGroup>
@@ -152,6 +153,7 @@
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="Compressor.cpp" />
     <ClCompile Include="List.cpp" />
+    <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="paths.cpp" />
     <ClCompile Include="Tile.cpp" />

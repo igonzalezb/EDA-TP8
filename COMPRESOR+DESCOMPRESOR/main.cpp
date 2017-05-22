@@ -23,13 +23,9 @@ int main(int argc, char *argv[])
 	//EDAlist<int>li;
 	//EDAlis<double>la;
 
-	//llamar con arg de linea de comando a funcion en paths
-
 	Board b;
 	Paths p;
 	p.saveDirPngs(argv[1]); //recibir tambien la lista. dir es un const char*
-
-
 
 	//B.getTiles().addElement(pos, 0); //en pos, en vez de pos se le pasa un Tile
 }

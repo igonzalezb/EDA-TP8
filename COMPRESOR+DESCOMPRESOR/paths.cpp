@@ -17,7 +17,6 @@ void Paths::saveDirPngs(const char* dir) //recibir tambien la lista
 					Tile t(itr->path().string()); //VER ESTA PARTE, COMO HACER EL addElement!!!!!!!!!!!!!!!!!!!!!
 
 					//B.addElement(t);
-
 					//cout << itr->path().string() << ' '; // display filename only
 					//cout << '\n';
 				}
@@ -45,9 +44,9 @@ bool Paths::isPng(string path)
 }
 */
 
-bool Paths::isOldExtension(string currentPath, string oldExtension)
+bool Paths::isOldExtension(string filePath, string oldExtension)
 {
-	string str(currentPath);
+	string str(filePath);
 	string str2(oldExtension);
 	unsigned int sizeDifference = (str.length() - str2.length());
 	size_t found = str.find(str2, sizeDifference);
@@ -57,9 +56,9 @@ bool Paths::isOldExtension(string currentPath, string oldExtension)
 		return false;
 }
 
-void Paths::replaceExtension(string currentPath, string oldExtension, string newExtension)
+void Paths::replaceExtension(string filePath, string oldExtension, string newExtension)
 {
-	string str(currentPath); 
+	string str(filePath); 
 	string strToFind(oldExtension);
 	string strThatReplaces(newExtension);
 
