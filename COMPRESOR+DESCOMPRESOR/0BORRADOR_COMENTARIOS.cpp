@@ -18,11 +18,11 @@ for (todos los elementos de la lista) //	VALEN
 
 HECHA ACAAAAA
 
-for (int i = 0; i < Tiles.getListSize(); i++)
+for (int i = 0; i < (POSICION DEL ULTIMO NODO); i++)
 {
-	if (Tiles.getElement(i).isSelected == true)
+	if (Tiles.getElement(i).isSelected == false)
 	{
-		//LLAMO A QUADTREE
+		removeElement(i); //O COMO SEA QUE SE HAGA PARA BORRAR ESE NODO DE LA LISTA Y PONERLE LOS PUNTEROS CORRESPONDIENTES
 	}
 }
 
