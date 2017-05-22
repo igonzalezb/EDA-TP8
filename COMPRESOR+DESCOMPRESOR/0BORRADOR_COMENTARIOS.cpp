@@ -16,6 +16,17 @@ for (todos los elementos de la lista) //	VALEN
 		delete element; (acomodar los punteros de next y previous node)
 }
 
+HECHA ACAAAAA
+
+for (int i = 0; i < Tiles.getListSize(); i++)
+{
+	if (Tiles.getElement(i).isSelected == true)
+	{
+		//LLAMO A QUADTREE
+	}
+}
+
+
 //ahora ya tenemos la lista SOLO con lo que hay que comprimir
 for (que recorra todos los pngs que quedaron en la lista) //seria lo que quedo en true
 {
