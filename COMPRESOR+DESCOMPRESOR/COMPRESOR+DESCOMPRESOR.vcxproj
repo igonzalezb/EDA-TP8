@@ -150,6 +150,7 @@
     <ClInclude Include="Tile.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="0BORRADOR_COMENTARIOS.cpp" />
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="Compressor.cpp" />
     <ClCompile Include="List.cpp" />

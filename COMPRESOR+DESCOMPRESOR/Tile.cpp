@@ -5,7 +5,7 @@
 
 Tile::Tile(string path)
 {
-	imagePath = path;
+	filePath = path;
 	selected = false;
 }
 
@@ -25,7 +25,7 @@ bool Tile::isSelected()
 	return selected;
 }
 
-string Tile::getImagePath()
+string Tile::getFilePath()
 {
 	return "prueba"; //sacar esto
 }
