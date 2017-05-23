@@ -22,10 +22,14 @@ public:
 	Graphic();
 	~Graphic();
 	void loadBitmaps(int i, const char *path);
-	void drawTiles(int i, int j, int tileNumber, bool isSelected, int PageNUmber);
-	void removeBitmaps(int i);
+	void drawTiles(unsigned int i, unsigned int j, unsigned int tileNumber, bool isSelected, unsigned int PageNumber);
+	void removeBitmaps(unsigned int PageNumber, unsigned int ListSize);
 	void cleanScreen();
 private:
+
+
+
+
 	ALLEGRO_BITMAP *tilesArray[TILES_MAX];
 	ALLEGRO_FONT *font = NULL;
 	ALLEGRO_BITMAP *background = NULL;

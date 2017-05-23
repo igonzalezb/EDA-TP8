@@ -2,7 +2,7 @@
 	CHECK LIST:
 		-Lea archivos dentro de carpetas
 		-main (podria hacerlo mas chico)
-		-arreglar lo de la LISTA!!!!!!
+		-arreglar lo de remove element
 		-Allegro:
 			_Enter y Mostrar la cantidad de imagenes comprimidas
 		-Quadtree

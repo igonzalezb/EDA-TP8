@@ -25,7 +25,7 @@ void Board::nextPage()
 	{
 		PageNumber++;
 		Tiles->moveToPos(TILES_MAX * PageNumber);
-		removeBitmaps();
+		graphics.removeBitmaps(PageNumber, Tiles->getListSize());
 		loadBitmaps();
 	}
 	
@@ -37,7 +37,7 @@ void Board::previousPage()
 	{
 		PageNumber--;
 		Tiles->moveToPos(PageNumber * TILES_MAX);
-		removeBitmaps();
+		graphics.removeBitmaps(PageNumber, Tiles->getListSize());
 		loadBitmaps();
 	}
 	
@@ -95,14 +95,12 @@ void Board::keyDispacher(ALLEGRO_EVENT ev)
 void Board::drawTiles()
 {
 	graphics.cleanScreen();
-	int tileNumber = 0;
+	unsigned int tileNumber = 0;
 
-	for (int j = 1; (j < 6) && (tileNumber < TILES_MAX) && (((PageNumber * TILES_MAX) + tileNumber) < Tiles->getListSize()); j++, j++, tileNumber++) {
+	for (unsigned int j = 1; (j < 6) && (tileNumber < TILES_MAX) && (((PageNumber * TILES_MAX) + tileNumber) < Tiles->getListSize()); j++, j++, tileNumber++) {
 
-		for (int i = 1; (i < 6) && (tileNumber < TILES_MAX) && (((PageNumber * TILES_MAX) + tileNumber) < Tiles->getListSize()); i++, i++, tileNumber++) {
+		for (unsigned int i = 1; (i < 6) && (tileNumber < TILES_MAX) && (((PageNumber * TILES_MAX) + tileNumber) < Tiles->getListSize()); i++, i++, tileNumber++) {
 
-			printf("tileNumber = %d\n", (PageNumber * TILES_MAX) + tileNumber);
-			printf("isSelected = %d\n", Tiles->getElement((PageNumber * TILES_MAX) + tileNumber).isSelected());
 			graphics.drawTiles(i, j, tileNumber, Tiles->getElement((PageNumber * TILES_MAX) + tileNumber).isSelected(), PageNumber);
 
 		}
@@ -146,13 +144,7 @@ void Board::removeNonSquares()
 	}
 }
 
-void Board::removeBitmaps()
-{
-	for (unsigned int i = 0; (i < TILES_MAX) && (((PageNumber * TILES_MAX) + i) < Tiles->getListSize()); i++) {
-		graphics.removeBitmaps(i);
-	}
-}
-
 Board::~Board()
 {
+	graphics.removeBitmaps(PageNumber, Tiles->getListSize());
 }

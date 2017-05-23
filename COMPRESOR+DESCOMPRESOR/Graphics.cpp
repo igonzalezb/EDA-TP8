@@ -29,12 +29,12 @@ void Graphic::loadBitmaps(int i, const char *path)
 	if (!tilesArray[i])
 	{
 		fprintf(stderr, "failed to create tale\n");
-		tilesArray[i] = NULL; ////??????
+		tilesArray[i] = NULL; //??????
 	}
 }
 
 
-void Graphic::drawTiles(int i, int j, int tileNumber, bool isSelected, int PageNumber)
+void Graphic::drawTiles(unsigned int i, unsigned int j, unsigned int tileNumber, bool isSelected, unsigned int PageNumber)
 {
 	al_draw_scaled_bitmap(tilesArray[tileNumber], 0.0, 0.0,
 		al_get_bitmap_width(tilesArray[tileNumber]), al_get_bitmap_height(tilesArray[tileNumber]),
@@ -52,9 +52,12 @@ void Graphic::drawTiles(int i, int j, int tileNumber, bool isSelected, int PageN
 	al_draw_textf(font, al_map_rgb(0, 0, 0), ((SCREEN_W / 6) * (i)), ((SCREEN_H / 6) * (j)) + (TILES_H / 2), ALLEGRO_ALIGN_CENTRE, "%d", tileNumber + 1);
 	al_draw_textf(font, al_map_rgb(0, 0, 0), SCREEN_W -30, SCREEN_H-35, ALLEGRO_ALIGN_CENTRE, "%d", PageNumber);
 }
-void Graphic::removeBitmaps(int i)
-{
-	al_destroy_bitmap(tilesArray[i]);
+
+
+void Graphic::removeBitmaps(unsigned int PageNumber, unsigned int ListSize)
+{	
+	for (unsigned int i = 0; (i < TILES_MAX) && (((PageNumber * TILES_MAX) + i) < ListSize); i++)
+		al_destroy_bitmap(tilesArray[i]);
 }
 
 void Graphic::cleanScreen()
@@ -68,4 +71,6 @@ void Graphic::cleanScreen()
 
 Graphic::~Graphic()
 {
+	al_destroy_font(font);
+	al_destroy_bitmap(background);
 }

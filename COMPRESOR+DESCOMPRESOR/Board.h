@@ -12,12 +12,15 @@ public:
 	~Board();
 	void nextPage();
 	void previousPage();
-	void loadBitmaps();
-	void toggleTile(int TileNum); //cambia el estado de las seleccionadas
-	void removeNonSquares();
 	void keyDispacher(ALLEGRO_EVENT ev);
+	void removeNonSquares();
+	void toggleTile(int TileNum); //cambia el estado de las seleccionadas
+
 	void drawTiles();
-	void removeBitmaps();
+
+	void loadBitmaps();
+		
+	
 
 private:
 	List<Tile> *Tiles = NULL;	//Creo una lista tiles, en la que cada nodo contiene un objeto Tile.
@@ -25,6 +28,3 @@ private:
 	unsigned int PageMax;
 	Graphic graphics;
 };
-
-
-//hacer un puntero de la primera imagen de las 9 que se muestran

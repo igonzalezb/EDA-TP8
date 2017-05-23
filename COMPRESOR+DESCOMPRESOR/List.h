@@ -91,6 +91,8 @@ public:
 		{
 			return currentNode->next->element;
 		}
+
+		return currentNode->element;
 	}
 
 

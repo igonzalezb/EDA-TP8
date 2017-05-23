@@ -38,6 +38,8 @@ int main(int argc, char *argv[])
 	display = al_create_display(SCREEN_W, SCREEN_H);
 	if (!display) {
 		fprintf(stderr, "failed to create display!\n");
+		delete imageList;
+		delete p;
 		allegroShutdown();
 		return EXIT_FAILURE;
 	}
@@ -45,12 +47,17 @@ int main(int argc, char *argv[])
 	logo = al_load_bitmap("resources\\logo.png");
 	if (!logo) {
 		fprintf(stderr, "failed to create logo!\n");
-		//////////lo qu dsjfnjsd
+		delete imageList;
+		delete p;
+		al_destroy_display(display);
+		allegroShutdown();
 	}
 
 	event_queue = al_create_event_queue();
 	if (!event_queue) {
 		fprintf(stderr, "failed to create event queue!\n");
+		delete imageList;
+		delete p;
 		al_destroy_display(display);
 		al_destroy_bitmap(logo);
 		allegroShutdown();
