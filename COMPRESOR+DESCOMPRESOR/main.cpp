@@ -10,7 +10,6 @@ is_regular_file // devuelve true si es un regular file o directory
 //la verificacion para q el usuario no meta cosas q no existen estan en exist
 */
 
-
 #include "Board.h"
 #include "Tile.h"
 #include "paths.h"
