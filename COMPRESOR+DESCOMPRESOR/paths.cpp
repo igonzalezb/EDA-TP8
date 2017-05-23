@@ -60,7 +60,7 @@ bool Paths::isOldExtension(string filePath, string oldExtension)
 		return false;
 }
 
-void Paths::replaceExtension(string filePath, string oldExtension, string newExtension)
+string Paths::replaceExtension(string filePath, string oldExtension, string newExtension)
 {
 	string str(filePath); 
 	string strToFind(oldExtension);
@@ -72,8 +72,6 @@ void Paths::replaceExtension(string filePath, string oldExtension, string newExt
 	if (found != std::string::npos)
 	{
 		str.replace(found, strToFind.length(), strThatReplaces);
-		//cout << ".png found at: " << found << '\n';
-		//cout << str << '\n';
-		getchar();
 	}
+	return str;
 }

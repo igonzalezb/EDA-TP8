@@ -31,7 +31,7 @@ public:
 	Para comprimir llamarla de la siguiente manera:  replaceExtension("todo el path.png", ".png", ".vim");
 	Para descomprimir:								 replaceExtension("todo el path.vim", ".vim", ".png");
 	*/
-	void replaceExtension(string filePath, string oldExtension, string newExtension);
+	string replaceExtension(string filePath, string oldExtension, string newExtension);
 
 private:
 	string oldExtension; //En Compressor se inicializa en ".png" y en Decompressor se inicializa en ".vim"

@@ -13,56 +13,66 @@ is_regular_file // devuelve true si es un regular file o directory
 #include "Board.h"
 #include "Tile.h"
 #include "paths.h"
+#include "Compressor.h"
 
 bool allegroStartup(void);
 void allegroShutdown(void);
 
 int main(int argc, char *argv[])
 {
-	bool do_exit = false;
 	
-	if (allegroStartup()) {
-		fprintf(stderr, "Error Initilizing Allegro\n");
+	Compressor c;
+
+	bool test = c.compressingFunction("0811wallpaper-2_1280.mvi", 960);
+	
+	if (!test)
 		return EXIT_FAILURE;
-	}
-	
-	List<Tile> *imageList;
-	imageList = new List<Tile>;
-	
-	Paths *p = new Paths(imageList);
-	p->saveDirPngs(argv[1]);
+	//bool do_exit = false;
+	//
+	//if (allegroStartup()) {
+	//	fprintf(stderr, "Error Initilizing Allegro\n");
+	//	return EXIT_FAILURE;
+	//}
+	//
+	//List<Tile> *imageList;
+	//imageList = new List<Tile>;
+	//
+	//Paths *p = new Paths(imageList);
+	//p->saveDirPngs(argv[1]);
 
-	Board *b = new Board(imageList);
+	//Board *b = new Board(imageList);
 
-	while (!do_exit)
-	{
-		ALLEGRO_EVENT ev;
-		al_wait_for_event(b->getGraphics()->getEventQueue(), &ev);
+	//while (!do_exit)
+	//{
+	//	ALLEGRO_EVENT ev;
+	//	al_wait_for_event(b->getGraphics()->getEventQueue(), &ev);
 
-		switch (ev.type)
-		{
-		case ALLEGRO_EVENT_DISPLAY_CLOSE:
-			do_exit = true;
-			break;
-		case ALLEGRO_EVENT_KEY_DOWN:
-			break;
-		case ALLEGRO_EVENT_KEY_UP:
-			if (ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
-				do_exit = true;
-			else if (ev.keyboard.keycode == ALLEGRO_KEY_ENTER) {
-				//LLAMAR AL QUADTREE Y MOSTRAR CARTELITO
-				do_exit = true;
-			}
-				
-			else
-				b->keyDispacher(ev);
-			break;
-		}
-	}
+	//	switch (ev.type)
+	//	{
+	//	case ALLEGRO_EVENT_DISPLAY_CLOSE:
+	//		do_exit = true;
+	//		break;
+	//	case ALLEGRO_EVENT_KEY_DOWN:
+	//		break;
+	//	case ALLEGRO_EVENT_KEY_UP:
+	//		if (ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
+	//			do_exit = true;
+	//		else if (ev.keyboard.keycode == ALLEGRO_KEY_ENTER) {
+	//					
+	//			
+	//			//LLAMAR AL QUADTREE Y MOSTRAR CARTELITO
+	//			do_exit = true;
+	//		}
+	//			
+	//		else
+	//			b->keyDispacher(ev);
+	//		break;
+	//	}
+	//}
 
-	delete imageList;
-	delete p;
-	delete b;
+	//delete imageList;
+	//delete p;
+	//delete b;
 	allegroShutdown();
 	return EXIT_SUCCESS;
 }

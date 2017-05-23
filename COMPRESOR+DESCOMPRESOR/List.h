@@ -83,6 +83,7 @@ public:
 		}
 
 		else if (pos == listSize) {
+
 			lastNode = lastNode->prev;
 			delete lastNode->next;
 			lastNode->next = NULL;
@@ -90,11 +91,12 @@ public:
 
 		else if (moveToPos(pos) == true)
 		{
-			delete currentNode->next;
+			Node<Type>* ToRemove= currentNode->next;
 
 			currentNode->next = currentNode->next->next;
 
 			currentNode->next->next->prev = currentNode;
+			delete ToRemove;
 		}
 
 		listSize--;

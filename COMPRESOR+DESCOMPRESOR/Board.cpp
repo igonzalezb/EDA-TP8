@@ -14,7 +14,7 @@ Board::Board(List<Tile> *Tiles)
 		PageMax++;
 	
 	graphics = new Graphic();
-	//removeNonSquares();
+	removeNonSquares();
 
 	loadBitmaps();
 	drawTiles();
@@ -140,9 +140,8 @@ void Board::removeNonSquares()
 		image = al_load_bitmap(Tiles->getElement(i).getFilePath().c_str());
 		if (!image)
 			fprintf(stderr, "failed to check dimensions\n");
-		if (al_get_bitmap_width(image) != al_get_bitmap_height(image))
+		if (al_get_bitmap_width(image) != al_get_bitmap_height(image) || (al_get_bitmap_width(image)&(al_get_bitmap_width(image) - 1)))
 			Tiles->removeElement(i);
-
 		al_destroy_bitmap(image);
 	}
 }

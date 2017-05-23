@@ -15,6 +15,7 @@ public:
 	void previousPage();
 	void keyDispacher(ALLEGRO_EVENT ev);
 	void removeNonSquares();
+	void removeNonSelected();
 	void toggleTile(int TileNum); //cambia el estado de las seleccionadas
 	void drawTiles();
 	void loadBitmaps();

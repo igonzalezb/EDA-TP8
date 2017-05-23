@@ -1,74 +1,82 @@
-//
-//#include "Compressor.h"
-//#include "lodepng.h"
-//
-//
-//void Compressor::decode(char* filePath)
-//{
-//	lodepng_decode32_file(&Img, &imgWidth, &imgHeight, filePath);
-//}
-//
-//
-//void Compressor::quadTree(unsigned char* image, unsigned int x0, unsigned int y0,
-//	unsigned int xf, unsigned int yf, FILE* fp)
-//{
-//	double Rmed = 0.0, Gmed = 0.0, Bmed = 0.0;
-//	unsigned int Rmax, GmaxG, Bmax, Rmin, Gmin, Bmin;
-//
-//	unsigned int i;
-//	for (i = 0; i < ....; i++) //COMPLETAR para determinar i
-//	{
-//		Rmax = max(Rmax, Img[i+COMPONENTE_R]);
-//		Gmax = max(Gmax, Img[i+COMPONENTE_G]);
-//		Bmax = max(Bmax, Img[i+COMPONENTE_B]);
-//
-//		Rmin = min(Rmin, Img[i+COMPONENTE_R]);
-//		Gmin = min(Rmin, Img[i+COMPONENTE_G]);
-//		Bmin = min(Rmin, Img[i+COMPONENTE_B]);
-//
-//		Rmed += Img[i+COMPONENTE_R];
-//		Gmed += Img[i+COMPONENTE_G];
-//		Bmed += Img[i+COMPONENTE_B];
-//	}
-//	Rmed /= (i+COMPONENTE_R); //ver y seguir
-//	Gmed /= (i+COMPONENTE_G);
-//	Bmed /= (i+COMPONENTE_B);
-//}
-//
-//unsigned int Compressor::max (unsigned int, unsigned int)
-//{
-//	return 
-//}
-//
-//
-//unsigned int Compressor::min(unsigned int, unsigned int)
-//{
-//	return
-//}
-//
-//
-//int max(int* array, int arraySize)
-//{
-//	int mayor = array[0];
-//
-//	for (int i = 0; i < arraySize; i++) {
-//		if (array[i] > mayor)
-//		{
-//			mayor = array[i];
-//		}
-//	}
-//	return mayor;
-//}
-//
-//int min(int* array, int arraySize)
-//{
-//	int menor = array[0];
-//
-//	for (int i = 0; i < arraySize; i++) {
-//		if (array[i] < menor)
-//		{
-//			menor = array[i];
-//		}
-//	}
-//	return menor;
-//}
+
+#include "Compressor.h"
+#include "lodepng.h"
+
+enum { COMPONENTE_R, COMPONENTE_G, COMPONENTE_B }componentesRGB;
+#define MAX(a,b) ((a)>(b)?(a):(b))
+#define MIN(a,b) ((a)<(b)?(a):(b))
+
+Compressor::Compressor()
+{
+}
+
+
+
+bool Compressor::compressingFunction(char* filePath, unsigned int lado)
+{
+	lodepng_decode32_file(&Img, &lado, &lado, filePath);
+	string _vim = Path->replaceExtension((string)filePath, ".png", ".mvi");
+
+	std::ofstream vim((char*)_vim.c_str(), ios_base::binary);
+	if (!vim.good())
+		return false;
+
+	quadTree(0, 0,lado,&vim);
+	vim.close();
+	free(Img);
+	return true;
+}
+
+
+void Compressor::quadTree(unsigned int x0, unsigned int y0, double lado, std::ofstream* compressedImg) //se la llama con los limites del cuadrante
+{
+	double Rmed = 0.0, Gmed = 0.0, Bmed = 0.0;
+	unsigned int Rmax=0, Gmax=0, Bmax=0, Rmin=255, Gmin=255, Bmin=255;
+	unsigned int peso;
+
+	unsigned int i;
+	unsigned int j;
+	for (i = 0; i < lado*lado; i++)				//COMPLETAR para determinar i (width * height)
+	{
+		j = i*PIXEL;
+		Rmax = MAX(Rmax, Img[j+COMPONENTE_R]);	//maximas componentes del cuadrante
+		Gmax = MAX(Gmax, Img[j+COMPONENTE_G]);
+		Bmax = MAX(Bmax, Img[j+COMPONENTE_B]);
+
+		Rmin = MIN(Rmin, Img[j+COMPONENTE_R]);	//minimas componentes del cuadrante
+		Gmin = MIN(Rmin, Img[j+COMPONENTE_G]);
+		Bmin = MIN(Rmin, Img[j+COMPONENTE_B]);
+
+		Rmed += Img[j+COMPONENTE_R];			//Suma de todas las componentes del color en el cuadrante
+		Gmed += Img[j+COMPONENTE_G];
+		Bmed += Img[j+COMPONENTE_B];
+	}
+
+	peso = (Rmax - Rmin) + (Gmax - Gmin) + (Bmax - Bmin); //Suma de las diferencias para cada letra
+
+	if (peso <= THRESHOLD)
+	{
+		Rmed /= i;								//Promedios de las componentes del cuadrante para cada color
+		Gmed /= i;
+		Bmed /= i;
+		*compressedImg << '0'<<(unsigned char)Rmed<<(unsigned char)Gmed<<(unsigned char)Bmed;
+	}
+	else
+	{
+		/*
+		Cuadrantes:
+		| 1 | 2	|
+		| 3	| 4	|
+		*/
+		*compressedImg << '1';
+		lado/=2;
+		quadTree(x0, y0, lado, compressedImg);			//primer cuadrante
+		quadTree(x0 + lado, y0, lado, compressedImg);	//segundo cuadrante
+		quadTree(x0, y0+lado, lado, compressedImg);		//tercer cuadrante
+		quadTree(x0+lado, y0+lado, lado, compressedImg);//cuarto cuadrante
+	}
+}
+
+
+
+
