@@ -118,8 +118,6 @@ void Board::toggleTile(int TileNum)
 	Tiles->getElement(TileNum).toggleSelection();
 }
 
-
-
 void Board::loadBitmaps()
 {
 	for (unsigned int i = 0; (i < TILES_MAX) && (((PageNumber * TILES_MAX) + i) < Tiles->getListSize()); i++)

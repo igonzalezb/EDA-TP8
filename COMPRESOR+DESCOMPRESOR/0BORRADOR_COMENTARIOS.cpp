@@ -1,4 +1,26 @@
 /*
+	CHECK LIST:
+		-main (podria hacerlo mas chico)
+		-arreglar lo de la LISTA!!!!!!
+		-Allegro:
+			_Enter y Mostrar la cantidad de imagenes comprimidas
+		-Quadtree
+		
+		
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 
 PARTES DEL PROGRAMA
 

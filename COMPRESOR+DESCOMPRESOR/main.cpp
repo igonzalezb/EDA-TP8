@@ -84,6 +84,11 @@ int main(int argc, char *argv[])
 		case ALLEGRO_EVENT_KEY_UP:
 			if (ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
 				do_exit = true;
+			else if (ev.keyboard.keycode == ALLEGRO_KEY_ENTER) {
+				//LLAMAR AL QUADTREE Y MOSTRAR CARTELITO
+				do_exit = true;
+			}
+				
 			else
 				b->keyDispacher(ev);
 			break;
