@@ -103,7 +103,7 @@ void Board::drawTiles()
 
 			printf("tileNumber = %d\n", (PageNumber * TILES_MAX) + tileNumber);
 			printf("isSelected = %d\n", Tiles->getElement((PageNumber * TILES_MAX) + tileNumber).isSelected());
-			graphics.drawTiles(i, j, tileNumber, Tiles->getElement((PageNumber * TILES_MAX) + tileNumber).isSelected());
+			graphics.drawTiles(i, j, tileNumber, Tiles->getElement((PageNumber * TILES_MAX) + tileNumber).isSelected(), PageNumber);
 
 		}
 

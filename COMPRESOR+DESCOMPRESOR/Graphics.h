@@ -22,7 +22,7 @@ public:
 	Graphic();
 	~Graphic();
 	void loadBitmaps(int i, const char *path);
-	void drawTiles(int i, int j, int tileNumber, bool isSelected);
+	void drawTiles(int i, int j, int tileNumber, bool isSelected, int PageNUmber);
 	void removeBitmaps(int i);
 	void cleanScreen();
 private:
