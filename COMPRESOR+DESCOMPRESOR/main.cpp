@@ -19,9 +19,7 @@ void allegroShutdown(void);
 
 int main(int argc, char *argv[])
 {
-	ALLEGRO_DISPLAY *display = NULL;
-	ALLEGRO_BITMAP *logo = NULL;
-	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
+	bool do_exit = false;
 	
 	if (allegroStartup()) {
 		fprintf(stderr, "Error Initilizing Allegro\n");
@@ -34,51 +32,12 @@ int main(int argc, char *argv[])
 	Paths *p = new Paths(imageList);
 	p->saveDirPngs(argv[1]);
 
-//===========================================================================================================
-	display = al_create_display(SCREEN_W, SCREEN_H);
-	if (!display) {
-		fprintf(stderr, "failed to create display!\n");
-		delete imageList;
-		delete p;
-		allegroShutdown();
-		return EXIT_FAILURE;
-	}
-
-	logo = al_load_bitmap("resources\\logo.png");
-	if (!logo) {
-		fprintf(stderr, "failed to create logo!\n");
-		delete imageList;
-		delete p;
-		al_destroy_display(display);
-		allegroShutdown();
-	}
-
-	event_queue = al_create_event_queue();
-	if (!event_queue) {
-		fprintf(stderr, "failed to create event queue!\n");
-		delete imageList;
-		delete p;
-		al_destroy_display(display);
-		al_destroy_bitmap(logo);
-		allegroShutdown();
-		return EXIT_FAILURE;
-	}
-
-	al_set_window_title(display, "Image Compressor & Descompressor");
-	al_set_display_icon(display, logo);
-//===========================================================================================================
 	Board *b = new Board(imageList);
-
-	al_register_event_source(event_queue, al_get_display_event_source(display));
-	al_register_event_source(event_queue, al_get_mouse_event_source());
-	al_register_event_source(event_queue, al_get_keyboard_event_source());
-
-	bool do_exit = false, redraw = true;
 
 	while (!do_exit)
 	{
 		ALLEGRO_EVENT ev;
-		al_wait_for_event(event_queue, &ev);
+		al_wait_for_event(b->getGraphics()->getEventQueue(), &ev);
 
 		switch (ev.type)
 		{
@@ -101,16 +60,10 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	//================================================================================================================================================
-	
 	delete imageList;
 	delete p;
 	delete b;
-	al_destroy_display(display);
-	al_destroy_bitmap(logo);
-	al_destroy_event_queue(event_queue);
 	allegroShutdown();
-	
 	return EXIT_SUCCESS;
 }
 

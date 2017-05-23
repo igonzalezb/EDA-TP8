@@ -12,7 +12,8 @@ Board::Board(List<Tile> *Tiles)
 
 	if (Tiles->getListSize() % TILES_MAX >= 0)
 		PageMax++;
-
+	
+	graphics = new Graphic();
 	//removeNonSquares();
 
 	loadBitmaps();
@@ -25,7 +26,7 @@ void Board::nextPage()
 	{
 		PageNumber++;
 		Tiles->moveToPos(TILES_MAX * PageNumber);
-		graphics.removeBitmaps(PageNumber, Tiles->getListSize());
+		graphics->removeBitmaps(PageNumber, Tiles->getListSize());
 		loadBitmaps();
 	}
 	
@@ -37,7 +38,7 @@ void Board::previousPage()
 	{
 		PageNumber--;
 		Tiles->moveToPos(PageNumber * TILES_MAX);
-		graphics.removeBitmaps(PageNumber, Tiles->getListSize());
+		graphics->removeBitmaps(PageNumber, Tiles->getListSize());
 		loadBitmaps();
 	}
 	
@@ -94,14 +95,14 @@ void Board::keyDispacher(ALLEGRO_EVENT ev)
 
 void Board::drawTiles()
 {
-	graphics.cleanScreen();
+	graphics->cleanScreen();
 	unsigned int tileNumber = 0;
 
 	for (unsigned int j = 1; (j < 6) && (tileNumber < TILES_MAX) && (((PageNumber * TILES_MAX) + tileNumber) < Tiles->getListSize()); j++, j++, tileNumber++) {
 
 		for (unsigned int i = 1; (i < 6) && (tileNumber < TILES_MAX) && (((PageNumber * TILES_MAX) + tileNumber) < Tiles->getListSize()); i++, i++, tileNumber++) {
 
-			graphics.drawTiles(i, j, tileNumber, Tiles->getElement((PageNumber * TILES_MAX) + tileNumber).isSelected(), PageNumber);
+			graphics->drawTiles(i, j, tileNumber, Tiles->getElement((PageNumber * TILES_MAX) + tileNumber).isSelected(), PageNumber);
 
 		}
 
@@ -120,11 +121,14 @@ void Board::loadBitmaps()
 {
 	for (unsigned int i = 0; (i < TILES_MAX) && (((PageNumber * TILES_MAX) + i) < Tiles->getListSize()); i++)
 	{
-		string s = Tiles->getElement((PageNumber * TILES_MAX) + i).getFilePath();
-		const char *path = s.c_str();
-		graphics.loadBitmaps(i, path);
+		graphics->loadBitmaps(i, Tiles->getElement((PageNumber * TILES_MAX) + i).getFilePath().c_str());
 
 	}
+}
+
+Graphic * Board::getGraphics()
+{
+	return graphics;
 }
 
 void Board::removeNonSquares()
@@ -132,9 +136,8 @@ void Board::removeNonSquares()
 	for (int i = 0; i < Board::Tiles->getListSize(); i++)
 	{
 		ALLEGRO_BITMAP *image = NULL;
-		string s = Tiles->getElement(i).getFilePath();
-		const char *path = s.c_str();
-		image = al_load_bitmap(path);
+		
+		image = al_load_bitmap(Tiles->getElement(i).getFilePath().c_str());
 		if (!image)
 			fprintf(stderr, "failed to check dimensions\n");
 		if (al_get_bitmap_width(image) != al_get_bitmap_height(image))
@@ -146,5 +149,6 @@ void Board::removeNonSquares()
 
 Board::~Board()
 {
-	graphics.removeBitmaps(PageNumber, Tiles->getListSize());
+	graphics->removeBitmaps(PageNumber, Tiles->getListSize());
+	delete graphics;
 }

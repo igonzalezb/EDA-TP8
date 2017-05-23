@@ -3,22 +3,58 @@
 
 Graphic::Graphic()
 {
+	display = al_create_display(SCREEN_W, SCREEN_H);
+	if (!display) {
+		fprintf(stderr, "failed to create display!\n");
+		display = NULL;
+	}
+
+	logo = al_load_bitmap("resources\\logo.png");
+	if (!logo) {
+		fprintf(stderr, "failed to create logo!\n");
+		al_destroy_display(display);
+		logo = NULL;
+	}
+
+	event_queue = al_create_event_queue();
+	if (!event_queue) {
+		fprintf(stderr, "failed to create event queue!\n");
+		al_destroy_display(display);
+		al_destroy_bitmap(logo);
+		event_queue = NULL;
+	}
+	
+	
 	font = al_load_ttf_font("resources\\font.ttf", 25, 0);
 	if (!font) {
 		fprintf(stderr, "failed to create font!\n");
+		al_destroy_display(display);
+		al_destroy_bitmap(logo);
+		al_destroy_event_queue(event_queue);
+		font = NULL;
 	}
 
 	background = al_load_bitmap("resources\\background.png");
 	if (!background) {
 		fprintf(stderr, "failed to create background!\n");
+		al_destroy_display(display);
+		al_destroy_bitmap(logo);
+		al_destroy_event_queue(event_queue);
+		al_destroy_font(font);
+		background = NULL;
 	}
 
+	al_set_window_title(display, "Image Compressor & Descompressor");
+	al_set_display_icon(display, logo);
 	al_clear_to_color(al_map_rgb(0.0, 0.0, 0.0));
 
 	al_draw_scaled_bitmap(background, 0.0, 0.0,
 		al_get_bitmap_width(background), al_get_bitmap_height(background),
 		0.0, 0.0, SCREEN_W, SCREEN_H, 0);
 
+	al_register_event_source(event_queue, al_get_display_event_source(display));
+	al_register_event_source(event_queue, al_get_mouse_event_source());
+	al_register_event_source(event_queue, al_get_keyboard_event_source());
 }
 
 
@@ -69,8 +105,21 @@ void Graphic::cleanScreen()
 		0.0, 0.0, SCREEN_W, SCREEN_H, 0);
 }
 
+ALLEGRO_DISPLAY * Graphic::getDisplay()
+{
+	return display;
+}
+
+ALLEGRO_EVENT_QUEUE * Graphic::getEventQueue()
+{
+	return event_queue;
+}
+
 Graphic::~Graphic()
 {
 	al_destroy_font(font);
 	al_destroy_bitmap(background);
+	al_destroy_display(display);
+	al_destroy_bitmap(logo);
+	al_destroy_event_queue(event_queue);
 }

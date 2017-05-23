@@ -74,14 +74,30 @@ public:
 
 	void removeElement(int pos)
 	{
-		if (moveToPos(pos) == true)
+		if (pos == 0)
 		{
+			firstNode = firstNode->next;
+			delete firstNode->prev;
+			firstNode->prev = NULL;
 
-			currentNode->prev->next = currentNode->next;
-			currentNode->next->prev = currentNode->prev;
-
-			listSize--;
 		}
+
+		else if (pos == listSize) {
+			lastNode = lastNode->prev;
+			delete lastNode->next;
+			lastNode->next = NULL;
+		}
+
+		else if (moveToPos(pos) == true)
+		{
+			delete currentNode->next;
+
+			currentNode->next = currentNode->next->next;
+
+			currentNode->next->next->prev = currentNode;
+		}
+
+		listSize--;
 	}
 
 
@@ -91,8 +107,6 @@ public:
 		{
 			return currentNode->next->element;
 		}
-
-		return currentNode->element;
 	}
 
 

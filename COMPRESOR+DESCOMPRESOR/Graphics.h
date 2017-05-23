@@ -25,11 +25,14 @@ public:
 	void drawTiles(unsigned int i, unsigned int j, unsigned int tileNumber, bool isSelected, unsigned int PageNumber);
 	void removeBitmaps(unsigned int PageNumber, unsigned int ListSize);
 	void cleanScreen();
+	ALLEGRO_DISPLAY * getDisplay();
+	ALLEGRO_EVENT_QUEUE * getEventQueue();
+
 private:
-
-
-
-
+	ALLEGRO_DISPLAY *display = NULL;
+	ALLEGRO_BITMAP *logo = NULL;
+	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
+	
 	ALLEGRO_BITMAP *tilesArray[TILES_MAX];
 	ALLEGRO_FONT *font = NULL;
 	ALLEGRO_BITMAP *background = NULL;
