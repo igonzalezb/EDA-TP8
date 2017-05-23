@@ -47,10 +47,10 @@ void Board::keyDispacher(ALLEGRO_EVENT ev)
 {
 	switch (ev.keyboard.keycode) {
 	case ALLEGRO_KEY_A:
-		for (unsigned int i = (PageNumber * TILES_MAX); i < (TILES_MAX + (PageNumber * TILES_MAX)); i++) { selectTile(i); }
+		for (unsigned int i = (PageNumber * TILES_MAX); i < (TILES_MAX + (PageNumber * TILES_MAX)); i++) { Tiles->getElement(i).select(); }
 		break;
 	case ALLEGRO_KEY_N:
-		for (unsigned int i = (PageNumber * TILES_MAX); i < (TILES_MAX + (PageNumber * TILES_MAX)); i++) { deselectTile(i); }
+		for (unsigned int i = (PageNumber * TILES_MAX); i < (TILES_MAX + (PageNumber * TILES_MAX)); i++) { Tiles->getElement(i).deselect(); }
 		break;
 	case ALLEGRO_KEY_RIGHT:
 		nextPage();
@@ -101,6 +101,7 @@ void Board::drawTiles()
 
 		for (int i = 1; (i < 6) && (tileNumber < TILES_MAX) && (((PageNumber * TILES_MAX) + tileNumber) < Tiles->getListSize()); i++, i++, tileNumber++) {
 
+			printf("tileNumber = %d\n", (PageNumber * TILES_MAX) + tileNumber);
 			printf("isSelected = %d\n", Tiles->getElement((PageNumber * TILES_MAX) + tileNumber).isSelected());
 			graphics.drawTiles(i, j, tileNumber, Tiles->getElement((PageNumber * TILES_MAX) + tileNumber).isSelected());
 
@@ -112,21 +113,12 @@ void Board::drawTiles()
 	al_flip_display();
 }
 
-
 void Board::toggleTile(int TileNum)
 {
 	Tiles->getElement(TileNum).toggleSelection();
 }
 
-void Board::selectTile(int TileNum)
-{
-	Tiles->getElement(TileNum).select();
-}
 
-void Board::deselectTile(int TileNum)
-{
-	Tiles->getElement(TileNum).deselect();
-}
 
 void Board::loadBitmaps()
 {
