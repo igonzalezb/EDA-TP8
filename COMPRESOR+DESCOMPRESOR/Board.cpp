@@ -92,7 +92,6 @@ void Board::keyDispacher(ALLEGRO_EVENT ev)
 
 }
 
-
 void Board::drawTiles()
 {
 	graphics->cleanScreen();
