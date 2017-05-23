@@ -50,12 +50,12 @@ public:
 
 	~List()
 	{
-		while (firstNode == lastNode)
+		while (firstNode != lastNode)
 		{
-			currentNode = firstNode;
-			delete currentNode;
 			firstNode = firstNode->next;
+			delete firstNode->prev;
 		}
+		delete lastNode;
 	}
 
 
