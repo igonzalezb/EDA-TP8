@@ -85,16 +85,12 @@ public:
 	}
 
 
-	Type getElement(int pos)
+	Type& getElement(int pos)
 	{
 		if (moveToPos(pos) == true)
 		{
-			Type elemento = currentNode->next->element;
-
-			return elemento;
+			return currentNode->next->element;
 		}
-
-		return NULL;
 	}
 
 
