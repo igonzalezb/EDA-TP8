@@ -21,58 +21,58 @@ void allegroShutdown(void);
 int main(int argc, char *argv[])
 {
 	
-	Compressor c;
+	/*Compressor c;
 
 	bool test = c.compressingFunction("0811wallpaper-2_1280.mvi", 960);
 	
 	if (!test)
+		return EXIT_FAILURE;*/
+	bool do_exit = false;
+	
+	if (allegroStartup()) {
+		fprintf(stderr, "Error Initilizing Allegro\n");
 		return EXIT_FAILURE;
-	//bool do_exit = false;
-	//
-	//if (allegroStartup()) {
-	//	fprintf(stderr, "Error Initilizing Allegro\n");
-	//	return EXIT_FAILURE;
-	//}
-	//
-	//List<Tile> *imageList;
-	//imageList = new List<Tile>;
-	//
-	//Paths *p = new Paths(imageList);
-	//p->saveDirPngs(argv[1]);
+	}
+	
+	List<Tile> *imageList;
+	imageList = new List<Tile>;
+	
+	Paths *p = new Paths(imageList);
+	p->saveDirPngs(argv[1]);
 
-	//Board *b = new Board(imageList);
+	Board *b = new Board(imageList);
 
-	//while (!do_exit)
-	//{
-	//	ALLEGRO_EVENT ev;
-	//	al_wait_for_event(b->getGraphics()->getEventQueue(), &ev);
+	while (!do_exit)
+	{
+		ALLEGRO_EVENT ev;
+		al_wait_for_event(b->getGraphics()->getEventQueue(), &ev);
 
-	//	switch (ev.type)
-	//	{
-	//	case ALLEGRO_EVENT_DISPLAY_CLOSE:
-	//		do_exit = true;
-	//		break;
-	//	case ALLEGRO_EVENT_KEY_DOWN:
-	//		break;
-	//	case ALLEGRO_EVENT_KEY_UP:
-	//		if (ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
-	//			do_exit = true;
-	//		else if (ev.keyboard.keycode == ALLEGRO_KEY_ENTER) {
-	//					
-	//			
-	//			//LLAMAR AL QUADTREE Y MOSTRAR CARTELITO
-	//			do_exit = true;
-	//		}
-	//			
-	//		else
-	//			b->keyDispacher(ev);
-	//		break;
-	//	}
-	//}
+		switch (ev.type)
+		{
+		case ALLEGRO_EVENT_DISPLAY_CLOSE:
+			do_exit = true;
+			break;
+		case ALLEGRO_EVENT_KEY_DOWN:
+			break;
+		case ALLEGRO_EVENT_KEY_UP:
+			if (ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
+				do_exit = true;
+			else if (ev.keyboard.keycode == ALLEGRO_KEY_ENTER) {
+				//b->startCompression();
+				//compression(b);
+				
+				do_exit = true;
+			}
+				
+			else
+				b->keyDispacher(ev);
+			break;
+		}
+	}
 
-	//delete imageList;
-	//delete p;
-	//delete b;
+	delete imageList;
+	delete p;
+	delete b;
 	allegroShutdown();
 	return EXIT_SUCCESS;
 }

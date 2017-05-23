@@ -19,7 +19,7 @@ public:
 	void toggleTile(int TileNum); //cambia el estado de las seleccionadas
 	void drawTiles();
 	void loadBitmaps();
-		
+	void startCompression();
 	
 
 private:

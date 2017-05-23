@@ -87,6 +87,7 @@ public:
 			lastNode = lastNode->prev;
 			delete lastNode->next;
 			lastNode->next = NULL;
+			
 		}
 
 		else if (moveToPos(pos) == true)

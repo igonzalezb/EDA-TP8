@@ -48,10 +48,10 @@ void Board::keyDispacher(ALLEGRO_EVENT ev)
 {
 	switch (ev.keyboard.keycode) {
 	case ALLEGRO_KEY_A:
-		for (unsigned int i = (PageNumber * TILES_MAX); i < (TILES_MAX + (PageNumber * TILES_MAX)); i++) { Tiles->getElement(i).select(); }
+		for (unsigned int i = 0; i <  Tiles->getListSize(); i++) { Tiles->getElement(i).select(); }
 		break;
 	case ALLEGRO_KEY_N:
-		for (unsigned int i = (PageNumber * TILES_MAX); i < (TILES_MAX + (PageNumber * TILES_MAX)); i++) { Tiles->getElement(i).deselect(); }
+		for (unsigned int i = 0; i <  Tiles->getListSize(); i++) { Tiles->getElement(i).deselect(); }
 		break;
 	case ALLEGRO_KEY_RIGHT:
 		nextPage();
@@ -114,7 +114,8 @@ void Board::drawTiles()
 
 void Board::toggleTile(int TileNum)
 {
-	Tiles->getElement(TileNum).toggleSelection();
+	if(TileNum < Tiles->getListSize())
+		Tiles->getElement(TileNum).toggleSelection();
 }
 
 void Board::loadBitmaps()
@@ -124,6 +125,13 @@ void Board::loadBitmaps()
 		graphics->loadBitmaps(i, Tiles->getElement((PageNumber * TILES_MAX) + i).getFilePath().c_str());
 
 	}
+}
+
+void Board::startCompression()
+{
+	graphics->cleanScreen();
+	graphics->removeBitmaps(PageNumber, Tiles->getListSize());
+	removeNonSelected();
 }
 
 Graphic * Board::getGraphics()
@@ -140,9 +148,18 @@ void Board::removeNonSquares()
 		image = al_load_bitmap(Tiles->getElement(i).getFilePath().c_str());
 		if (!image)
 			fprintf(stderr, "failed to check dimensions\n");
-		if (al_get_bitmap_width(image) != al_get_bitmap_height(image) || (al_get_bitmap_width(image)&(al_get_bitmap_width(image) - 1)))
+		if (al_get_bitmap_width(image) != al_get_bitmap_height(image) && ((al_get_bitmap_width(image)&(al_get_bitmap_width(image) - 1)) != 0))
 			Tiles->removeElement(i);
 		al_destroy_bitmap(image);
+	}
+}
+
+void Board::removeNonSelected()
+{
+	for (int i = 0; i < Board::Tiles->getListSize(); i++)
+	{
+		if (!Tiles->getElement((PageNumber * TILES_MAX) + i).isSelected())
+			Tiles->removeElement(i);
 	}
 }
 
