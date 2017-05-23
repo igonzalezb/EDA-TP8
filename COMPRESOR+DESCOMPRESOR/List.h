@@ -79,7 +79,7 @@ public:
 			firstNode = firstNode->next;
 			delete firstNode->prev;
 			firstNode->prev = NULL;
-
+			listSize--;
 		}
 
 		else if (pos == listSize) {
@@ -87,7 +87,7 @@ public:
 			lastNode = lastNode->prev;
 			delete lastNode->next;
 			lastNode->next = NULL;
-			
+			listSize--;
 		}
 
 		else if (moveToPos(pos) == true)
@@ -98,9 +98,10 @@ public:
 
 			currentNode->next->next->prev = currentNode;
 			delete ToRemove;
+			listSize--;
 		}
 
-		listSize--;
+		
 	}
 
 
