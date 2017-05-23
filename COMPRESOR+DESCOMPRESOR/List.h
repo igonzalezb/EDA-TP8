@@ -82,7 +82,7 @@ public:
 			listSize--;
 		}
 
-		else if (pos == listSize) {
+		else if (pos == (listSize-1)) {
 
 			lastNode = lastNode->prev;
 			delete lastNode->next;
