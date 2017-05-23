@@ -53,8 +53,6 @@ int main(int argc, char *argv[])
 			do_exit = true;
 			break;
 		case ALLEGRO_EVENT_KEY_DOWN:
-			break;
-		case ALLEGRO_EVENT_KEY_UP:
 			if (ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
 				do_exit = true;
 			else if (ev.keyboard.keycode == ALLEGRO_KEY_ENTER) {
