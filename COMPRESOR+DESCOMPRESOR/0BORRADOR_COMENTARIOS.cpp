@@ -1,5 +1,6 @@
 /*
 	CHECK LIST:
+		-Lea archivos dentro de carpetas
 		-main (podria hacerlo mas chico)
 		-arreglar lo de la LISTA!!!!!!
 		-Allegro:
