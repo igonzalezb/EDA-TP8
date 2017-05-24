@@ -7,6 +7,7 @@ enum { COMPONENTE_R, COMPONENTE_G, COMPONENTE_B, COMPONENTE_A }componentesRGB;
 
 bool Decompressor::decompressingFunction(const char* filePath,unsigned int lado)
 {
+	imgW = lado;
 	string _png = Path->replaceExtension((string)filePath, ".mvi", "(new).png");
 
 	std::ifstream vim (filePath, ios_base::binary);				//Se utiliza el archivo en modo lectura
@@ -24,7 +25,7 @@ bool Decompressor::decompressingFunction(const char* filePath,unsigned int lado)
 		_noError = false;
 	}
 
-	//quadTree(0,0,lado,&vim);
+	quadTree(0,0,lado,&vim);
 
 	vim.close();
 	return _noError;
@@ -58,10 +59,10 @@ bool Decompressor::quadTree(unsigned int x0, unsigned int y0, double lado, std::
 		{																								//de todos los pixels del cuadrante,
 			for (unsigned int i = 0; i < lado; i++)														//cuyo tamaño es lado*lado
 			{
-				Img[(y0 + j)*(int)lado*PIXEL + (x0 + i)*PIXEL + COMPONENTE_R] = rgba[COMPONENTE_R];
-				Img[(y0 + j)*(int)lado*PIXEL + (x0 + i)*PIXEL + COMPONENTE_G] = rgba[COMPONENTE_G];
-				Img[(y0 + j)*(int)lado*PIXEL + (x0 + i)*PIXEL + COMPONENTE_B] = rgba[COMPONENTE_B];
-				Img[(y0 + j)*(int)lado*PIXEL + (x0 + i)*PIXEL + COMPONENTE_A] = rgba[COMPONENTE_A];
+				Img[(y0 + j)*(int)imgW*PIXEL + (x0 + i)*PIXEL + COMPONENTE_R] = rgba[COMPONENTE_R];
+				Img[(y0 + j)*(int)imgW*PIXEL + (x0 + i)*PIXEL + COMPONENTE_G] = rgba[COMPONENTE_G];
+				Img[(y0 + j)*(int)imgW*PIXEL + (x0 + i)*PIXEL + COMPONENTE_B] = rgba[COMPONENTE_B];
+				Img[(y0 + j)*(int)imgW*PIXEL + (x0 + i)*PIXEL + COMPONENTE_A] = rgba[COMPONENTE_A];
 			}
 		}
 	}

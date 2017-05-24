@@ -17,7 +17,7 @@ private:
 	 
 	unsigned char* Img;
 	Paths* Path;
-
+	unsigned int imgW;
 public:
 	Decompressor();
 
