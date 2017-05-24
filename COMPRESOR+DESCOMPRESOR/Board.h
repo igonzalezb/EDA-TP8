@@ -1,5 +1,6 @@
 #pragma once
 
+#include "main.h"
 #include "Graphics.h"
 #include "List.h"
 #include "Tile.h"
@@ -14,12 +15,17 @@ public:
 	void nextPage();
 	void previousPage();
 	void keyDispacher(ALLEGRO_EVENT ev);
-	void removeNonSquares();
+	
 	void removeNonSelected();
 	void toggleTile(int TileNum); //cambia el estado de las seleccionadas
 	void drawTiles();
+	
+#if IAM == COMPRESSOR
 	void loadBitmaps();
+	void removeNonSquares();
 	void startCompression();
+#endif
+	
 	
 
 private:

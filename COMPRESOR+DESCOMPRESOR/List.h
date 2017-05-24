@@ -50,11 +50,13 @@ public:
 
 	~List()
 	{
-		while (firstNode != lastNode)
+		
+		for (int i = 0; i < listSize; i++)
 		{
-			firstNode = firstNode->next;
-			delete firstNode->prev;
+			removeElement(i);
 		}
+		
+		delete firstNode;
 		delete lastNode;
 	}
 

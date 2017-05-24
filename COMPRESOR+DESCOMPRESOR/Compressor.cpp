@@ -1,5 +1,6 @@
-
 #include "Compressor.h"
+#if IAM == COMPRESSOR
+
 #include "lodepng.h"
 
 enum { COMPONENTE_R, COMPONENTE_G, COMPONENTE_B }componentesRGB;
@@ -79,4 +80,4 @@ void Compressor::quadTree(unsigned int x0, unsigned int y0, double lado, std::of
 
 
 
-
+#endif

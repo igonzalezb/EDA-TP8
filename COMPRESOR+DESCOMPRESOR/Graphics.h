@@ -1,4 +1,5 @@
 #pragma once
+#include "main.h"
 #include <iostream>
 #include <string>
 #include <allegro5\allegro.h>
@@ -21,9 +22,15 @@ class Graphic
 public:
 	Graphic();
 	~Graphic();
+#if IAM == COMPRESSOR
 	void loadBitmaps(int i, const char *path);
-	void drawTiles(unsigned int i, unsigned int j, unsigned int tileNumber, bool isSelected, unsigned int PageNumber);
 	void removeBitmaps(unsigned int PageNumber, unsigned int ListSize);
+	void drawPng(unsigned int i, unsigned int j, unsigned int tileNumber, bool isSelected, unsigned int PageNumber);
+#else
+	void drawCompressed(unsigned int i, unsigned int j, unsigned int tileNumber, bool isSelected, unsigned int PageNumber, const char* name);
+#endif
+	
+	
 	void cleanScreen();
 	ALLEGRO_DISPLAY * getDisplay();
 	ALLEGRO_EVENT_QUEUE * getEventQueue();
@@ -33,7 +40,10 @@ private:
 	ALLEGRO_BITMAP *logo = NULL;
 	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 	
-	ALLEGRO_BITMAP *tilesArray[TILES_MAX];
+	
 	ALLEGRO_FONT *font = NULL;
 	ALLEGRO_BITMAP *background = NULL;
+#if IAM == COMPRESSOR
+	ALLEGRO_BITMAP *tilesArray[TILES_MAX];
+#endif
 };

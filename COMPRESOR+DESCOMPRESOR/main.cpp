@@ -10,10 +10,17 @@ is_regular_file // devuelve true si es un regular file o directory
 //la verificacion para q el usuario no meta cosas q no existen estan en exist
 */
 
+#include "main.h"
 #include "Board.h"
 #include "Tile.h"
 #include "paths.h"
+
+#if IAM == COMPRESSOR
 #include "Compressor.h"
+#else
+#include "Decompressor.h"
+#endif // IAM
+
 
 bool allegroStartup(void);
 void allegroShutdown(void);
@@ -23,7 +30,7 @@ int main(int argc, char *argv[])
 	
 	/*Compressor c;
 
-	bool test = c.compressingFunction("0811wallpaper-2_1280.mvi", 960);
+	bool test = c.compressingFunction("0811wallpaper-2_1280.png", 960);
 	
 	if (!test)
 		return EXIT_FAILURE;*/

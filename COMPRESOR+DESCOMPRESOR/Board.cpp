@@ -14,9 +14,10 @@ Board::Board(List<Tile> *Tiles)
 		PageMax++;
 	
 	graphics = new Graphic();
+#if IAM == COMPRESSOR
 	removeNonSquares();
-
 	loadBitmaps();
+#endif
 	drawTiles();
 }
 
@@ -26,8 +27,11 @@ void Board::nextPage()
 	{
 		PageNumber++;
 		Tiles->moveToPos(TILES_MAX * PageNumber);
+		
+#if IAM == COMPRESSOR
 		graphics->removeBitmaps(PageNumber, Tiles->getListSize());
 		loadBitmaps();
+#endif
 	}
 	
 }
@@ -38,8 +42,10 @@ void Board::previousPage()
 	{
 		PageNumber--;
 		Tiles->moveToPos(PageNumber * TILES_MAX);
+#if IAM == COMPRESSOR
 		graphics->removeBitmaps(PageNumber, Tiles->getListSize());
 		loadBitmaps();
+#endif
 	}
 	
 }
@@ -95,14 +101,19 @@ void Board::keyDispacher(ALLEGRO_EVENT ev)
 void Board::drawTiles()
 {
 	graphics->cleanScreen();
+
 	unsigned int tileNumber = 0;
 
 	for (unsigned int j = 1; (j < 6) && (tileNumber < TILES_MAX) && (((PageNumber * TILES_MAX) + tileNumber) < Tiles->getListSize()); j++, j++, tileNumber++) {
 
 		for (unsigned int i = 1; (i < 6) && (tileNumber < TILES_MAX) && (((PageNumber * TILES_MAX) + tileNumber) < Tiles->getListSize()); i++, i++, tileNumber++) {
-
-			graphics->drawTiles(i, j, tileNumber, Tiles->getElement((PageNumber * TILES_MAX) + tileNumber).isSelected(), PageNumber);
-
+#if IAM == COMPRESSOR
+			graphics->drawPng(i, j, tileNumber, Tiles->getElement((PageNumber * TILES_MAX) + tileNumber).isSelected(), PageNumber);
+#else
+			graphics->drawCompressed(i, j, tileNumber, 
+				Tiles->getElement((PageNumber * TILES_MAX) + tileNumber).isSelected(), 
+				PageNumber, Tiles->getElement((PageNumber * TILES_MAX) + tileNumber).getFilePath().c_str());
+#endif
 		}
 
 		tileNumber--;
@@ -117,6 +128,7 @@ void Board::toggleTile(int TileNum)
 		Tiles->getElement(TileNum).toggleSelection();
 }
 
+#if IAM == COMPRESSOR
 void Board::loadBitmaps()
 {
 	for (unsigned int i = 0; (i < TILES_MAX) && (((PageNumber * TILES_MAX) + i) < Tiles->getListSize()); i++)
@@ -126,24 +138,12 @@ void Board::loadBitmaps()
 	}
 }
 
-void Board::startCompression()
-{
-	graphics->cleanScreen();
-	graphics->removeBitmaps(PageNumber, Tiles->getListSize());
-	removeNonSelected();
-}
-
-Graphic * Board::getGraphics()
-{
-	return graphics;
-}
-
 void Board::removeNonSquares()
 {
 	for (int i = 0; i < Board::Tiles->getListSize(); i++)
 	{
 		ALLEGRO_BITMAP *image = NULL;
-		
+
 		image = al_load_bitmap(Tiles->getElement(i).getFilePath().c_str());
 		if (!image)
 			fprintf(stderr, "failed to check dimensions\n");
@@ -151,6 +151,21 @@ void Board::removeNonSquares()
 			Tiles->removeElement(i);
 		al_destroy_bitmap(image);
 	}
+}
+void Board::startCompression()
+{
+	graphics->cleanScreen();
+	graphics->removeBitmaps(PageNumber, Tiles->getListSize());
+	removeNonSelected();
+}
+#endif
+
+
+
+
+Graphic * Board::getGraphics()
+{
+	return graphics;
 }
 
 void Board::removeNonSelected()
@@ -164,6 +179,9 @@ void Board::removeNonSelected()
 
 Board::~Board()
 {
+#if IAM == COMPRESSOR
 	graphics->removeBitmaps(PageNumber, Tiles->getListSize());
+#endif // IAM == COMPRESSOR
+	graphics->cleanScreen();
 	delete graphics;
 }

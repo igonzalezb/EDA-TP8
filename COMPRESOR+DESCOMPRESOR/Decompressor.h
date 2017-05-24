@@ -1,5 +1,6 @@
 #pragma once
-
+#include "main.h"
+#if IAM == DECOMPRESSOR
 #include <boost/filesystem.hpp>
 #include <fstream>
 #include "paths.h"
@@ -24,3 +25,4 @@ public:
 	bool quadTree(unsigned int x0, unsigned int y0, double lado, std::ifstream* vim);
 };
 
+#endif

@@ -24,8 +24,11 @@ Graphic::Graphic()
 		event_queue = NULL;
 	}
 	
-	
+#if IAM == COMPRESSOR
 	font = al_load_ttf_font("resources\\font.ttf", 25, 0);
+#else
+	font = al_load_ttf_font("resources\\font.ttf", 15, 0);
+#endif // IAM == COMPRESSOR
 	if (!font) {
 		fprintf(stderr, "failed to create font!\n");
 		al_destroy_display(display);
@@ -57,7 +60,7 @@ Graphic::Graphic()
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
 }
 
-
+#if IAM == COMPRESSOR
 
 void Graphic::loadBitmaps(int i, const char *path)
 {
@@ -69,32 +72,64 @@ void Graphic::loadBitmaps(int i, const char *path)
 	}
 }
 
-
-void Graphic::drawTiles(unsigned int i, unsigned int j, unsigned int tileNumber, bool isSelected, unsigned int PageNumber)
-{
-	al_draw_scaled_bitmap(tilesArray[tileNumber], 0.0, 0.0,
-		al_get_bitmap_width(tilesArray[tileNumber]), al_get_bitmap_height(tilesArray[tileNumber]),
-		((SCREEN_W / 6) * (i)) - (TILES_W / 2),
-		((SCREEN_H / 6) * (j)) - (TILES_H / 2),
-		TILES_W, TILES_H, 0);
-	if (isSelected)
-		al_draw_rectangle(((SCREEN_W / 6) * (i)) - (TILES_W / 2), ((SCREEN_H / 6) * (j)) - (TILES_H / 2),
-		((SCREEN_W / 6) * (i)) - (TILES_W / 2) + TILES_W, ((SCREEN_H / 6) * (j)) - (TILES_H / 2) + TILES_H,
-			al_map_rgb(0.0, 255.0, 0.0), 5.0);
-	else
-		al_draw_rectangle(((SCREEN_W / 6) * (i)) - (TILES_W / 2), ((SCREEN_H / 6) * (j)) - (TILES_H / 2),
-		((SCREEN_W / 6) * (i)) - (TILES_W / 2) + TILES_W, ((SCREEN_H / 6) * (j)) - (TILES_H / 2) + TILES_H,
-			al_map_rgb(0.0, 0.0, 0.0), 5.0);
-	al_draw_textf(font, al_map_rgb(0, 0, 0), ((SCREEN_W / 6) * (i)), ((SCREEN_H / 6) * (j)) + (TILES_H / 2), ALLEGRO_ALIGN_CENTRE, "%d", tileNumber + 1);
-	al_draw_textf(font, al_map_rgb(0, 0, 0), SCREEN_W -30, SCREEN_H-35, ALLEGRO_ALIGN_CENTRE, "%d", PageNumber);
-}
-
-
 void Graphic::removeBitmaps(unsigned int PageNumber, unsigned int ListSize)
-{	
+{
 	for (unsigned int i = 0; (i < TILES_MAX) && (((PageNumber * TILES_MAX) + i) < ListSize); i++)
 		al_destroy_bitmap(tilesArray[i]);
 }
+
+void Graphic::drawPng(unsigned int i, unsigned int j, unsigned int tileNumber, bool isSelected, unsigned int PageNumber)
+{
+	float x1 = ((SCREEN_W / 6) * (i)) - (TILES_W / 2);
+	float x2 = ((SCREEN_W / 6) * (i)) - (TILES_W / 2) + TILES_W;
+	float y1 = ((SCREEN_H / 6) * (j)) - (TILES_H / 2);
+	float y2 = ((SCREEN_H / 6) * (j)) - (TILES_H / 2) + TILES_H;
+	
+	
+	al_draw_scaled_bitmap(tilesArray[tileNumber], 0.0, 0.0,
+		al_get_bitmap_width(tilesArray[tileNumber]), al_get_bitmap_height(tilesArray[tileNumber]),
+		x1, y1, TILES_W, TILES_H, 0);
+	
+	if (isSelected)
+		al_draw_rectangle(x1, y1, x2, y2, al_map_rgb(0.0, 255.0, 0.0), 5.0);
+	else
+		al_draw_rectangle(x1, y1, x2, y2, al_map_rgb(0.0, 0.0, 0.0), 5.0);
+
+	al_draw_textf(font, al_map_rgb(0, 0, 0), ((SCREEN_W / 6) * (i)), ((SCREEN_H / 6) * (j)) + (TILES_H / 2), ALLEGRO_ALIGN_CENTRE, "%d", tileNumber + 1);
+	al_draw_textf(font, al_map_rgb(0, 0, 0), SCREEN_W - 30, SCREEN_H - 35, ALLEGRO_ALIGN_CENTRE, "%d", PageNumber);
+}
+
+
+
+
+#else
+
+void Graphic::drawCompressed(unsigned int i, unsigned int j, unsigned int tileNumber, bool isSelected, unsigned int PageNumber, const char* name)
+{
+	float x1 = ((SCREEN_W / 6) * (i)) - (TILES_W / 2);
+	float x2 = ((SCREEN_W / 6) * (i)) - (TILES_W / 2) + TILES_W;
+	float y1 = ((SCREEN_H / 6) * (j)) - (TILES_H / 2);
+	float y2 = ((SCREEN_H / 6) * (j)) - (TILES_H / 2) + TILES_H;
+	
+	int k = strlen(name)-1;
+	while (k >= 0 && (name[k] != '\\')) { k--; }
+	k++;
+	al_draw_filled_rectangle(x1, y1,x2, y2,al_map_rgb(255.0, 4.0, 4.0));
+	al_draw_textf(font, al_map_rgb(0, 0, 0), ((SCREEN_W / 6) * (i)), ((SCREEN_H / 6) * (j)), ALLEGRO_ALIGN_CENTRE, "%s", (name + k));
+
+	if (isSelected)
+		al_draw_rectangle(x1, y1, x2, y2, al_map_rgb(0.0, 255.0, 0.0), 5.0);
+	else
+		al_draw_rectangle(x1, y1, x2, y2, al_map_rgb(0.0, 0.0, 0.0), 5.0);
+	
+	al_draw_textf(font, al_map_rgb(0, 0, 0), ((SCREEN_W / 6) * (i)), ((SCREEN_H / 6) * (j)) + (TILES_H / 2), ALLEGRO_ALIGN_CENTRE, "%d", tileNumber + 1);
+	al_draw_textf(font, al_map_rgb(0, 0, 0), SCREEN_W - 30, SCREEN_H - 35, ALLEGRO_ALIGN_CENTRE, "%d", PageNumber);
+
+}
+
+#endif
+
+
 
 void Graphic::cleanScreen()
 {

@@ -2,11 +2,16 @@
 #include "paths.h"
 #include "Tile.h"
 #include "List.h" //Ver
-
+#include "main.h"
 Paths::Paths(List<Tile>* imageList)
 {
+#if IAM == COMPRESSOR
 	oldExtension = ".png";
-	newExtension = ".vim";
+	newExtension = ".mvi";
+#else
+	oldExtension = ".mvi";
+	newExtension = ".png";
+#endif
 	this->imageList = imageList;
 }
 

@@ -1,5 +1,6 @@
 
 #include "Decompressor.h"
+#if IAM == DECOMPRESSOR
 #include "lodepng.h"
 
 enum { COMPONENTE_R, COMPONENTE_G, COMPONENTE_B, COMPONENTE_A }componentesRGB;
@@ -75,3 +76,5 @@ bool Decompressor::quadTree(unsigned int x0, unsigned int y0, double lado, std::
 Decompressor::Decompressor()
 {
 }
+
+#endif
