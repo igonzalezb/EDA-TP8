@@ -56,8 +56,10 @@ bool Board::keyDispacher(ALLEGRO_EVENT ev)
 	switch (ev.keyboard.keycode) {
 	
 	case ALLEGRO_KEY_ESCAPE:
+#if IAM == COMPRESSOR
 		graphics->cleanScreen();
 		graphics->removeBitmaps(PageNumber, Tiles->getListSize());
+#endif
 		return true;
 	case ALLEGRO_KEY_A:
 		for (unsigned int i = 0; i <  Tiles->getListSize(); i++) { Tiles->getElement(i).select(); }
