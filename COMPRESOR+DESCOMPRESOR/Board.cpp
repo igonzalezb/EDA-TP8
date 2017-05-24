@@ -1,23 +1,24 @@
 
 #include "Board.h"
 
-
 Board::Board(List<Tile> *Tiles)
 {
 	this->Tiles = Tiles;
-
 	PageNumber = 0;
+
+	graphics = new Graphic();
+
+#if IAM == COMPRESSOR
+	removeNonSquares();
+	loadBitmaps();
+#endif
+
+	
 	PageMax = Tiles->getListSize() / TILES_MAX;
 	PageMax--;
 
 	if (Tiles->getListSize() % TILES_MAX >= 0)
 		PageMax++;
-	
-	graphics = new Graphic();
-#if IAM == COMPRESSOR
-	removeNonSquares();
-	loadBitmaps();
-#endif
 	drawTiles();
 }
 
@@ -147,7 +148,7 @@ void Board::removeNonSquares()
 		image = al_load_bitmap(Tiles->getElement(i).getFilePath().c_str());
 		if (!image)
 			fprintf(stderr, "failed to check dimensions\n");
-		if (al_get_bitmap_width(image) != al_get_bitmap_height(image) && ((al_get_bitmap_width(image)&(al_get_bitmap_width(image) - 1)) != 0))
+		else if (!((al_get_bitmap_width(image) == al_get_bitmap_height(image)) && ((al_get_bitmap_width(image)&(al_get_bitmap_width(image) - 1)) == 0)))
 			Tiles->removeElement(i);
 		else {
 			Tiles->getElement(i).setLength(al_get_bitmap_width(image));
@@ -157,6 +158,8 @@ void Board::removeNonSquares()
 }
 
 #endif
+
+
 void Board::startCompression()
 {
 	graphics->compreScreen();
@@ -165,8 +168,6 @@ void Board::startCompression()
 #endif
 	removeNonSelected();
 }
-
-
 
 Graphic * Board::getGraphics()
 {
@@ -180,10 +181,13 @@ List<Tile>* Board::getTiles()
 
 void Board::removeNonSelected()
 {
+	//int size = Tiles->getListSize();
 	for (int i = 0; i < Tiles->getListSize(); i++)
 	{
-		if (!Tiles->getElement(i).isSelected())
+		if (!Tiles->getElement(i).isSelected()) {
 			Tiles->removeElement(i);
+			i--;
+		}
 	}
 }
 

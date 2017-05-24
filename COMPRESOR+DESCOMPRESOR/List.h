@@ -94,11 +94,14 @@ public:
 
 		else if (moveToPos(pos) == true)
 		{
-			Node<Type>* ToRemove= currentNode->next;
+			Node<Type>* ToRemove = currentNode;// currentNode->next;
 
-			currentNode->next = currentNode->next->next;
+			//currentNode->next = currentNode->next->next;
+			currentNode->prev->next = currentNode->next;
 
-			currentNode->next->next->prev = currentNode;
+			//currentNode->next->next->prev = currentNode;
+			currentNode->next->prev = currentNode->prev;
+			
 			delete ToRemove;
 			listSize--;
 		}
@@ -111,20 +114,20 @@ public:
 	{
 		if (moveToPos(pos) == true)
 		{
-			return currentNode->next->element;
+			return currentNode->element;//currentNode->next->element;
 		}
 	}
 
 
 	bool moveToPos(int pos)
 	{
-		if ((pos < 0) || (pos > listSize))
+		if ((pos < 0) || (pos >= listSize))	//cambie poslistSize
 		{
-			printf("El elemento que se quiere acceder no existe en la lista");
+			printf("El elemento que se quiere acceder no existe en la lista\n");
 			return false;
 		}
-
-		currentNode = firstNode;
+		
+		currentNode = firstNode->next;//cambie firstNode
 
 		for (int i = 0; i < pos; i++)
 		{

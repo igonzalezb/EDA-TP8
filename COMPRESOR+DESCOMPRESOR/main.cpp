@@ -80,12 +80,18 @@ void de_compress(Board* b)
 #if IAM == COMPRESSOR
 	Compressor c;
 	
-	for (int i = 0; i < b->getTiles()->getListSize(); i++)
+	for (int i = 0; i <= b->getTiles()->getListSize(); i++)
 	{
 		
 		c.compressingFunction(b->getTiles()->getElement(i).getFilePath().c_str(), b->getTiles()->getElement(i).getLength());
 	}
-	
+#else
+	Decompressor d;
+	for (int i = 0; i <= b->getTiles()->getListSize(); i++)
+	{
+
+		d.decompressingFunction(b->getTiles()->getElement(i).getFilePath().c_str(), b->getTiles()->getElement(i).getLength());
+	}
 #endif
 
 }

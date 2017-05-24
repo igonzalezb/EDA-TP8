@@ -5,9 +5,9 @@
 
 enum { COMPONENTE_R, COMPONENTE_G, COMPONENTE_B, COMPONENTE_A }componentesRGB;
 
-bool Decompressor::decompressingFunction(char* filePath,unsigned int lado)
+bool Decompressor::decompressingFunction(const char* filePath,unsigned int lado)
 {
-	string _png = Path->replaceExtension((string)filePath, ".mvi", ".png");
+	string _png = Path->replaceExtension((string)filePath, ".mvi", "(new).png");
 
 	std::ifstream vim (filePath, ios_base::binary);				//Se utiliza el archivo en modo lectura
 	if (!vim.good())

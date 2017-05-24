@@ -21,7 +21,7 @@ private:
 public:
 	Decompressor();
 
-	bool decompressingFunction(char* filePath, unsigned int lado);
+	bool decompressingFunction(const char* filePath, unsigned int lado);
 	bool quadTree(unsigned int x0, unsigned int y0, double lado, std::ifstream* vim);
 };
 

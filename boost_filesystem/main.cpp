@@ -25,33 +25,32 @@ int main(int argc, char *argv[]) {
 	c -= '0';
 	switch (c) {
 	case 1:
-		 check_existance(argv[1]);
+		return check_existance(argv[1]);
 		break;
 	case 2:
-		 fileSize(argv[1]);
+		return fileSize(argv[1]);
 		break;
 	case 3:
-		 see_dirContent(argv[1]); //saveDirPngs
+		return see_dirContent(argv[1]);
 		break;
 	case 4:
-		 sort_directories(argv[1]);
+		return sort_directories(argv[1]);
 		break;
 	case 5:
-		 returnCurrentPath();
+		return returnCurrentPath();
 		break;
 	case 6:
-		 copyFile(argv[1], argv[2]);
+		return copyFile(argv[1], argv[2]);
 		break;
 	case 7:
-		 createDir(argv[1]);
+		return createDir(argv[1]);
 		break;
 	case 8:
-		 seeLastWritten(argv[1]);
+		return seeLastWritten(argv[1]);
 		break;
 
 	default:
 		return 0;
 		break;
 	}
-	getchar();
 }
