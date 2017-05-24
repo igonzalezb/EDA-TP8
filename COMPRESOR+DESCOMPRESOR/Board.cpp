@@ -51,9 +51,14 @@ void Board::previousPage()
 	
 }
 
-void Board::keyDispacher(ALLEGRO_EVENT ev)
+bool Board::keyDispacher(ALLEGRO_EVENT ev)
 {
 	switch (ev.keyboard.keycode) {
+	
+	case ALLEGRO_KEY_ESCAPE:
+		graphics->cleanScreen();
+		graphics->removeBitmaps(PageNumber, Tiles->getListSize());
+		return true;
 	case ALLEGRO_KEY_A:
 		for (unsigned int i = 0; i <  Tiles->getListSize(); i++) { Tiles->getElement(i).select(); }
 		break;
@@ -96,6 +101,7 @@ void Board::keyDispacher(ALLEGRO_EVENT ev)
 	}
 
 	drawTiles();
+	return false;
 
 }
 
@@ -141,7 +147,7 @@ void Board::loadBitmaps()
 
 void Board::removeNonSquares()
 {
-	for (int i = 0; i < Board::Tiles->getListSize(); i++)
+	for (int i = 0; i < Tiles->getListSize(); i++)
 	{
 		ALLEGRO_BITMAP *image = NULL;
 
@@ -193,9 +199,6 @@ void Board::removeNonSelected()
 
 Board::~Board()
 {
-#if IAM == COMPRESSOR
-	graphics->removeBitmaps(PageNumber, Tiles->getListSize());
-#endif // IAM == COMPRESSOR
 	graphics->cleanScreen();
 	delete graphics;
 }

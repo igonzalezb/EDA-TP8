@@ -24,7 +24,7 @@ bool Decompressor::decompressingFunction(const char* filePath,unsigned int lado)
 		_noError = false;
 	}
 
-	//quadTree(0,0,lado,&vim);
+	quadTree(0,0,lado,&vim);
 
 	vim.close();
 	return _noError;

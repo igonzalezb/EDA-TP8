@@ -15,7 +15,7 @@ public:
 	List<Tile> *getTiles();
 	void nextPage();
 	void previousPage();
-	void keyDispacher(ALLEGRO_EVENT ev);
+	bool keyDispacher(ALLEGRO_EVENT ev);
 	
 	void removeNonSelected();
 	void toggleTile(int TileNum); //cambia el estado de las seleccionadas
