@@ -15,11 +15,13 @@ Compressor::Compressor()
 
 bool Compressor::compressingFunction(const char* filePath, unsigned int lado)
 {
+	imgW = lado;
+	
 	lodepng_decode32_file(&Img, &lado, &lado, filePath);
 	
 	string _vim = Path->replaceExtension((string)filePath, ".png", ".mvi");
 
-	std::ofstream vim((char*)_vim.c_str(), ios_base::binary);
+	std::ofstream vim(_vim.c_str(), ios_base::binary);
 	if (!vim.good())
 		return false;
 
@@ -32,26 +34,45 @@ bool Compressor::compressingFunction(const char* filePath, unsigned int lado)
 
 void Compressor::quadTree(unsigned int x0, unsigned int y0, double lado, std::ofstream* compressedImg) //se la llama con los limites del cuadrante
 {
+	
 	double Rmed = 0.0, Gmed = 0.0, Bmed = 0.0;
 	unsigned int Rmax=0, Gmax=0, Bmax=0, Rmin=255, Gmin=255, Bmin=255;
 	unsigned int peso;
 
 	unsigned int i;
 	unsigned int j;
-	for (i = 0; i < lado*lado; i++)				//COMPLETAR para determinar i (width * height)
+	//for (i = 0; i < lado*lado; i++)				//COMPLETAR para determinar i (width * height)
+	//{
+	//	j = i*PIXEL;
+	//	Rmax = MAX(Rmax, Img[j+COMPONENTE_R]);	//maximas componentes del cuadrante
+	//	Gmax = MAX(Gmax, Img[j+COMPONENTE_G]);
+	//	Bmax = MAX(Bmax, Img[j+COMPONENTE_B]);
+
+	//	Rmin = MIN(Rmin, Img[j+COMPONENTE_R]);	//minimas componentes del cuadrante
+	//	Gmin = MIN(Rmin, Img[j+COMPONENTE_G]);
+	//	Bmin = MIN(Rmin, Img[j+COMPONENTE_B]);
+
+	//	Rmed += Img[j+COMPONENTE_R];			//Suma de todas las componentes del color en el cuadrante
+	//	Gmed += Img[j+COMPONENTE_G];
+	//	Bmed += Img[j+COMPONENTE_B];
+	//}
+
+	for (i = 0; i < lado; i++)
 	{
-		j = i*PIXEL;
-		Rmax = MAX(Rmax, Img[j+COMPONENTE_R]);	//maximas componentes del cuadrante
-		Gmax = MAX(Gmax, Img[j+COMPONENTE_G]);
-		Bmax = MAX(Bmax, Img[j+COMPONENTE_B]);
+		for (j = 0; j < lado; j++)
+		{
+			Rmax = MAX(Rmax, Img[(y0 + j)*imgW*PIXEL + (x0 + j)*PIXEL + COMPONENTE_R]);
+			Gmax = MAX(Rmax, Img[(y0 + j)*imgW*PIXEL + (x0 + j)*PIXEL + COMPONENTE_G]);
+			Bmax = MAX(Rmax, Img[(y0 + j)*imgW*PIXEL + (x0 + j)*PIXEL + COMPONENTE_B]);
 
-		Rmin = MIN(Rmin, Img[j+COMPONENTE_R]);	//minimas componentes del cuadrante
-		Gmin = MIN(Rmin, Img[j+COMPONENTE_G]);
-		Bmin = MIN(Rmin, Img[j+COMPONENTE_B]);
+			Rmin = MAX(Rmin, Img[(y0 + j)*imgW*PIXEL + (x0 + j)*PIXEL + COMPONENTE_R]);
+			Gmin = MAX(Rmin, Img[(y0 + j)*imgW*PIXEL + (x0 + j)*PIXEL + COMPONENTE_G]);
+			Bmin = MAX(Rmin, Img[(y0 + j)*imgW*PIXEL + (x0 + j)*PIXEL + COMPONENTE_B]);
 
-		Rmed += Img[j+COMPONENTE_R];			//Suma de todas las componentes del color en el cuadrante
-		Gmed += Img[j+COMPONENTE_G];
-		Bmed += Img[j+COMPONENTE_B];
+			Rmed += Img[(y0 + j)*imgW*PIXEL + (x0 + j)*PIXEL + COMPONENTE_R];
+			Gmed += Img[(y0 + j)*imgW*PIXEL + (x0 + j)*PIXEL + COMPONENTE_G];
+			Bmed += Img[(y0 + j)*imgW*PIXEL + (x0 + j)*PIXEL + COMPONENTE_B];
+		}
 	}
 
 	peso = (Rmax - Rmin) + (Gmax - Gmin) + (Bmax - Bmin); //Suma de las diferencias para cada letra

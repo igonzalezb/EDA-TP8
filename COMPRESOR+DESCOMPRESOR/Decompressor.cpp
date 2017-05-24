@@ -18,14 +18,15 @@ bool Decompressor::decompressingFunction(const char* filePath,unsigned int lado)
 
 	bool _noError = true;
 
-	quadTree(0, 0, lado, &vim);
+	if (!quadTree(0, 0, lado, &vim))
+	{
+		_noError = false;
+	}
 
 	if(lodepng_encode32_file(_png.c_str(), Img, lado, lado)!=0) 
 	{
 		_noError = false;
 	}
-
-	quadTree(0,0,lado,&vim);
 
 	vim.close();
 	return _noError;
