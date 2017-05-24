@@ -6,6 +6,7 @@ Tile::Tile(string path)
 {
 	filePath = path;
 	selected = false;
+	length = 0;
 }
 
 Tile::~Tile()
@@ -37,4 +38,14 @@ bool Tile::isSelected()
 string Tile::getFilePath()
 {
 	return filePath; 
+}
+
+int Tile::getLength()
+{
+	return length;
+}
+
+void Tile::setLength(int length)
+{
+	this->length = length;
 }

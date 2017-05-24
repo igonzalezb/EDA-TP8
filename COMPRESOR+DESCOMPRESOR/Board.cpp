@@ -149,17 +149,22 @@ void Board::removeNonSquares()
 			fprintf(stderr, "failed to check dimensions\n");
 		if (al_get_bitmap_width(image) != al_get_bitmap_height(image) && ((al_get_bitmap_width(image)&(al_get_bitmap_width(image) - 1)) != 0))
 			Tiles->removeElement(i);
+		else {
+			Tiles->getElement(i).setLength(al_get_bitmap_width(image));
+		}
 		al_destroy_bitmap(image);
 	}
 }
+
+#endif
 void Board::startCompression()
 {
-	graphics->cleanScreen();
+	graphics->compreScreen();
+#if IAM == COMPRESSOR
 	graphics->removeBitmaps(PageNumber, Tiles->getListSize());
+#endif
 	removeNonSelected();
 }
-#endif
-
 
 
 
@@ -168,11 +173,16 @@ Graphic * Board::getGraphics()
 	return graphics;
 }
 
+List<Tile>* Board::getTiles()
+{
+	return Tiles;
+}
+
 void Board::removeNonSelected()
 {
-	for (int i = 0; i < Board::Tiles->getListSize(); i++)
+	for (int i = 0; i < Tiles->getListSize(); i++)
 	{
-		if (!Tiles->getElement((PageNumber * TILES_MAX) + i).isSelected())
+		if (!Tiles->getElement(i).isSelected())
 			Tiles->removeElement(i);
 	}
 }

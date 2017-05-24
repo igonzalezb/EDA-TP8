@@ -21,19 +21,13 @@ is_regular_file // devuelve true si es un regular file o directory
 #include "Decompressor.h"
 #endif // IAM
 
-
+void de_compress(Board* b);
 bool allegroStartup(void);
 void allegroShutdown(void);
 
 int main(int argc, char *argv[])
 {
 	
-	/*Compressor c;
-
-	bool test = c.compressingFunction("0811wallpaper-2_1280.png", 960);
-	
-	if (!test)
-		return EXIT_FAILURE;*/
 	bool do_exit = false;
 	
 	if (allegroStartup()) {
@@ -63,9 +57,8 @@ int main(int argc, char *argv[])
 			if (ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
 				do_exit = true;
 			else if (ev.keyboard.keycode == ALLEGRO_KEY_ENTER) {
-				//b->startCompression();
-				//compression(b);
-				
+				b->startCompression();
+				de_compress(b);
 				do_exit = true;
 			}
 				
@@ -80,6 +73,21 @@ int main(int argc, char *argv[])
 	delete b;
 	allegroShutdown();
 	return EXIT_SUCCESS;
+}
+
+void de_compress(Board* b)
+{
+#if IAM == COMPRESSOR
+	Compressor c;
+	
+	for (int i = 0; i < b->getTiles()->getListSize(); i++)
+	{
+		
+		c.compressingFunction(b->getTiles()->getElement(i).getFilePath().c_str(), b->getTiles()->getElement(i).getLength());
+	}
+	
+#endif
+
 }
 
 

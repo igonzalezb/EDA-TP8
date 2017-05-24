@@ -22,7 +22,7 @@ public:
 	Compressor();
 
 	//void decode(char* path); //Descompresor tiene que tener encode
-	bool compressingFunction(char* filePath, unsigned int lado);
+	bool compressingFunction(const char* filePath, unsigned int lado);
 	void quadTree(unsigned int x0, unsigned int y0, double lado, std::ofstream* vim);
 };
 

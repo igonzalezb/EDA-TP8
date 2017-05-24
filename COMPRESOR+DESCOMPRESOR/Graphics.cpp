@@ -114,8 +114,8 @@ void Graphic::drawCompressed(unsigned int i, unsigned int j, unsigned int tileNu
 	int k = strlen(name)-1;
 	while (k >= 0 && (name[k] != '\\')) { k--; }
 	k++;
-	al_draw_filled_rectangle(x1, y1,x2, y2,al_map_rgb(255.0, 4.0, 4.0));
-	al_draw_textf(font, al_map_rgb(0, 0, 0), ((SCREEN_W / 6) * (i)), ((SCREEN_H / 6) * (j)), ALLEGRO_ALIGN_CENTRE, "%s", (name + k));
+	al_draw_filled_rectangle(x1, y1,x2, y2,al_map_rgb(0.0, 0.0, 0.0));
+	al_draw_textf(font, al_map_rgb(255, 255, 255), ((SCREEN_W / 6) * (i)), ((SCREEN_H / 6) * (j)), ALLEGRO_ALIGN_CENTRE, "%s", (name + k));
 
 	if (isSelected)
 		al_draw_rectangle(x1, y1, x2, y2, al_map_rgb(0.0, 255.0, 0.0), 5.0);
@@ -130,6 +130,13 @@ void Graphic::drawCompressed(unsigned int i, unsigned int j, unsigned int tileNu
 #endif
 
 
+
+void Graphic::compreScreen()
+{
+	al_clear_to_color(al_map_rgb(0, 0, 0));
+	al_draw_textf(font, al_map_rgb(255, 255, 255), (SCREEN_W / 2), (SCREEN_H / 2), ALLEGRO_ALIGN_CENTRE, "Compressing or Decompressing files\n");
+	al_flip_display();
+}
 
 void Graphic::cleanScreen()
 {

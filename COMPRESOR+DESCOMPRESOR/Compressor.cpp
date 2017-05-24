@@ -13,9 +13,10 @@ Compressor::Compressor()
 
 
 
-bool Compressor::compressingFunction(char* filePath, unsigned int lado)
+bool Compressor::compressingFunction(const char* filePath, unsigned int lado)
 {
 	lodepng_decode32_file(&Img, &lado, &lado, filePath);
+	
 	string _vim = Path->replaceExtension((string)filePath, ".png", ".mvi");
 
 	std::ofstream vim((char*)_vim.c_str(), ios_base::binary);

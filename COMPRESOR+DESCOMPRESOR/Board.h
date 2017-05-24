@@ -12,6 +12,7 @@ public:
 	Board(List<Tile> *Tiles);
 	~Board();
 	Graphic * getGraphics();
+	List<Tile> *getTiles();
 	void nextPage();
 	void previousPage();
 	void keyDispacher(ALLEGRO_EVENT ev);
@@ -19,11 +20,12 @@ public:
 	void removeNonSelected();
 	void toggleTile(int TileNum); //cambia el estado de las seleccionadas
 	void drawTiles();
-	
+	void startCompression();
+
 #if IAM == COMPRESSOR
 	void loadBitmaps();
 	void removeNonSquares();
-	void startCompression();
+	
 #endif
 	
 	

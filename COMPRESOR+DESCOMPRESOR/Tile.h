@@ -16,12 +16,14 @@ public:
 	void toggleSelection();
 	bool isSelected();
 	string getFilePath();
-
+	int getLength();
+	void setLength(int length);
 
 
 private:
 	string filePath;
 	bool selected;
+	int length;
 
 };
 

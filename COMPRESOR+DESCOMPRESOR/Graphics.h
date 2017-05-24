@@ -30,7 +30,7 @@ public:
 	void drawCompressed(unsigned int i, unsigned int j, unsigned int tileNumber, bool isSelected, unsigned int PageNumber, const char* name);
 #endif
 	
-	
+	void compreScreen();
 	void cleanScreen();
 	ALLEGRO_DISPLAY * getDisplay();
 	ALLEGRO_EVENT_QUEUE * getEventQueue();
