@@ -54,16 +54,20 @@ bool Decompressor::quadTree(unsigned int x0, unsigned int y0, double lado, std::
 
 	case'0':													//El cuadrante no se dividió. 
 	{
-		unsigned char rgba[PIXEL] = { vim->get(),vim->get(),vim->get(),255 };							//Valores de RGBA para todos los pixels del cuadrante.
+		//unsigned char rgba[PIXEL] = { vim->get(),vim->get(),vim->get(),255 };							//Valores de RGBA para todos los pixels del cuadrante.
 
 		for (unsigned int j = 0; j < lado; j++)															//Se guardan los valores RGB y alfa 
 		{																								//de todos los pixels del cuadrante,
 			for (unsigned int i = 0; i < lado; i++)														//cuyo tamaño es lado*lado
 			{
-				Img[(y0 + j)*(int)imgW*PIXEL + (x0 + i)*PIXEL + COMPONENTE_R] = rgba[COMPONENTE_R];
-				Img[(y0 + j)*(int)imgW*PIXEL + (x0 + i)*PIXEL + COMPONENTE_G] = rgba[COMPONENTE_G];
-				Img[(y0 + j)*(int)imgW*PIXEL + (x0 + i)*PIXEL + COMPONENTE_B] = rgba[COMPONENTE_B];
-				Img[(y0 + j)*(int)imgW*PIXEL + (x0 + i)*PIXEL + COMPONENTE_A] = rgba[COMPONENTE_A];
+				//Img[(y0 + j)*(int)imgW*PIXEL + (x0 + i)*PIXEL + COMPONENTE_R] = rgba[COMPONENTE_R];
+				//Img[(y0 + j)*(int)imgW*PIXEL + (x0 + i)*PIXEL + COMPONENTE_G] = rgba[COMPONENTE_G];
+				//Img[(y0 + j)*(int)imgW*PIXEL + (x0 + i)*PIXEL + COMPONENTE_B] = rgba[COMPONENTE_B];
+				//Img[(y0 + j)*(int)imgW*PIXEL + (x0 + i)*PIXEL + COMPONENTE_A] = rgba[COMPONENTE_A];
+				Img[(y0 + j)*(int)imgW*PIXEL + (x0 + i)*PIXEL + COMPONENTE_R] = vim->get();
+				Img[(y0 + j)*(int)imgW*PIXEL + (x0 + i)*PIXEL + COMPONENTE_G] = vim->get();
+				Img[(y0 + j)*(int)imgW*PIXEL + (x0 + i)*PIXEL + COMPONENTE_B] = vim->get();
+				Img[(y0 + j)*(int)imgW*PIXEL + (x0 + i)*PIXEL + COMPONENTE_A] = '255';
 			}
 		}
 	}
