@@ -54,16 +54,14 @@ int main(int argc, char *argv[])
 			do_exit = true;
 			break;
 		case ALLEGRO_EVENT_KEY_DOWN:
-			if (ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
-				do_exit = true;
-			else if (ev.keyboard.keycode == ALLEGRO_KEY_ENTER) {
+			if (ev.keyboard.keycode == ALLEGRO_KEY_ENTER) {
 				b->startCompression();
 				de_compress(b);
 				do_exit = true;
 			}
 				
 			else
-				b->keyDispacher(ev);
+				do_exit = b->keyDispacher(ev);
 			break;
 		}
 	}
@@ -80,14 +78,14 @@ void de_compress(Board* b)
 #if IAM == COMPRESSOR
 	Compressor c;
 	
-	for (int i = 0; i <= b->getTiles()->getListSize(); i++)
+	for (int i = 0; i < b->getTiles()->getListSize(); i++)
 	{
 		
 		c.compressingFunction(b->getTiles()->getElement(i).getFilePath().c_str(), b->getTiles()->getElement(i).getLength());
 	}
 #else
 	Decompressor d;
-	for (int i = 0; i <= b->getTiles()->getListSize(); i++)
+	for (int i = 0; i < b->getTiles()->getListSize(); i++)
 	{
 
 		d.decompressingFunction(b->getTiles()->getElement(i).getFilePath().c_str(), b->getTiles()->getElement(i).getLength());
