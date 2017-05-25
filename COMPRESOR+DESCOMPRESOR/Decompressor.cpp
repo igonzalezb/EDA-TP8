@@ -7,9 +7,8 @@ enum { COMPONENTE_R, COMPONENTE_G, COMPONENTE_B, COMPONENTE_A }componentesRGB;
 
 bool Decompressor::decompressingFunction(const char* filePath)
 {
-	int lado = 1024;
+	int lado = 2048;
 	imgW = lado;
-
 
 	string _png = Path->replaceExtension((string)filePath, ".mvi", "(new).png");
 
@@ -20,7 +19,7 @@ bool Decompressor::decompressingFunction(const char* filePath)
 	Img = new unsigned char[lado*lado*PIXEL];
 
 	bool _noError = true;
-
+	
 	if (!quadTree(0, 0, lado, &vim))
 	{
 		_noError = false;
@@ -39,20 +38,19 @@ bool Decompressor::decompressingFunction(const char* filePath)
 
 bool Decompressor::quadTree(unsigned int x0, unsigned int y0, double lado, std::ifstream* vim) 
 {
+	printf("%u\n", lado);
 	unsigned char c = vim->get();
+	printf("c=%c\n", c);
 	bool noError = false;
 	switch (c)
 	{
 	case '1':													//Se dividió el cuadrante en 4.
 	{
 		lado /= 2;	
-		if (quadTree(x0,y0,lado,vim)==false ||					//Se llama nuevamente a quadTree 4 veces: 
-			quadTree(x0+lado, y0, lado, vim)==false ||			//una vez para cada uno de los 4 nuevos cuadrantes.
-			quadTree(x0, y0+lado, lado, vim)==false || 
-			quadTree(x0+lado, y0+lado, lado, vim)==false)
-		{
-			noError = false;			
-		}
+		quadTree(x0, y0, lado, vim);
+		quadTree(x0 + lado, y0, lado, vim);		
+		quadTree(x0, y0 + lado, lado, vim);
+		quadTree(x0 + lado, y0 + lado, lado, vim);
 	}
 	break;
 
@@ -70,15 +68,6 @@ bool Decompressor::quadTree(unsigned int x0, unsigned int y0, double lado, std::
 				Img[(y0 + j)*(int)imgW*PIXEL + (x0 + i)*PIXEL + COMPONENTE_A] = rgba[COMPONENTE_A];
 			}
 		}
-		//unsigned char * pElement;
-		//for (unsigned int j = 0; j<lado; j++)
-		//{
-		//	pElement = Img + PIXEL*(j * imgW + x0);
-		//	for (unsigned int i = 0; i<lado; i++) {
-		//		memcpy(pElement, rgba, PIXEL); //guardar los RGBA obtenidos en todo el cuadrante
-		//		pElement += PIXEL;
-		//	}
-		//}
 
 	}
 	break;

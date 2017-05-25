@@ -15,6 +15,7 @@ Compressor::Compressor()
 
 bool Compressor::compressingFunction(const char* filePath, unsigned int lado)
 {
+	printf("%u\n", lado);
 	imgW = lado;
 	
 	lodepng_decode32_file(&Img, &lado, &lado, filePath);
@@ -35,7 +36,7 @@ bool Compressor::compressingFunction(const char* filePath, unsigned int lado)
 
 void Compressor::quadTree(unsigned int x0, unsigned int y0, double lado, std::ofstream* compressedImg) //se la llama con los limites del cuadrante
 {
-	
+	printf("%lf\n", lado);
 	double Rmed = 0.0, Gmed = 0.0, Bmed = 0.0;
 	unsigned int Rmax=0, Gmax=0, Bmax=0, Rmin=255, Gmin=255, Bmin=255;
 	unsigned int peso;
@@ -50,34 +51,16 @@ void Compressor::quadTree(unsigned int x0, unsigned int y0, double lado, std::of
 			Rmax = MAX(Rmax, Img[(y0 + j)*imgW*PIXEL + (x0 + i)*PIXEL + COMPONENTE_R]);
 			Gmax = MAX(Gmax, Img[(y0 + j)*imgW*PIXEL + (x0 + i)*PIXEL + COMPONENTE_G]);
 			Bmax = MAX(Bmax, Img[(y0 + j)*imgW*PIXEL + (x0 + i)*PIXEL + COMPONENTE_B]);
+
 			Rmin = MIN(Rmin, Img[(y0 + j)*imgW*PIXEL + (x0 + i)*PIXEL + COMPONENTE_R]);
 			Gmin = MIN(Gmin, Img[(y0 + j)*imgW*PIXEL + (x0 + i)*PIXEL + COMPONENTE_G]);
 			Bmin = MIN(Bmin, Img[(y0 + j)*imgW*PIXEL + (x0 + i)*PIXEL + COMPONENTE_B]);
+
 			Rmed += Img[(y0 + j)*imgW*PIXEL + (x0 + i)*PIXEL + COMPONENTE_R];
 			Gmed += Img[(y0 + j)*imgW*PIXEL + (x0 + i)*PIXEL + COMPONENTE_G];
 			Bmed += Img[(y0 + j)*imgW*PIXEL + (x0 + i)*PIXEL + COMPONENTE_B];
 		}
 	}
-
-
-	//unsigned char* pElement = Img;
-	//for (unsigned int j = 0; j < lado; j++)
-	//{
-	//	pElement = Img + PIXEL*(j  * imgW + x0);
-	//	for (i = 0; i < lado; i++)    //COMPLETAR para determinar i (width * height)
-	//	{
-	//		Rmax = MAX(Rmax, pElement[COMPONENTE_R]); //maximas componentes del cuadrante
-	//		Gmax = MAX(Gmax, pElement[COMPONENTE_G]);
-	//		Bmax = MAX(Bmax, pElement[COMPONENTE_B]);
-	//		Rmin = MIN(Rmin, pElement[COMPONENTE_R]); //minimas componentes del cuadrante
-	//		Gmin = MIN(Rmin, pElement[COMPONENTE_G]);
-	//		Bmin = MIN(Rmin, pElement[COMPONENTE_B]);
-	//		Rmed += pElement[COMPONENTE_R];   //Suma de todas las componentes del color en el cuadrante
-	//		Gmed += pElement[COMPONENTE_G];
-	//		Bmed += pElement[COMPONENTE_B];
-	//		pElement += PIXEL;
-	//	}
-	//}
 
 	peso = (Rmax - Rmin) + (Gmax - Gmin) + (Bmax - Bmin); //Suma de las diferencias para cada letra
 
@@ -93,14 +76,14 @@ void Compressor::quadTree(unsigned int x0, unsigned int y0, double lado, std::of
 		/*
 		Cuadrantes:
 		| 1 | 2	|
-		| 3	| 4	|
+		| 3 | 4	|
 		*/
 		*compressedImg << '1';
 		lado/=2;
 		quadTree(x0, y0, lado, compressedImg);			//primer cuadrante
-		quadTree(x0 + lado, y0, lado, compressedImg);	//segundo cuadrante
+		quadTree(x0 + lado, y0, lado, compressedImg);		//segundo cuadrante
 		quadTree(x0, y0+lado, lado, compressedImg);		//tercer cuadrante
-		quadTree(x0+lado, y0+lado, lado, compressedImg);//cuarto cuadrante
+		quadTree(x0+lado, y0+lado, lado, compressedImg);	//cuarto cuadrante
 	}
 }
 
