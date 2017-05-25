@@ -5,6 +5,7 @@
 
 enum { COMPONENTE_R, COMPONENTE_G, COMPONENTE_B, COMPONENTE_A }componentesRGB;
 
+
 bool Decompressor::decompressingFunction(const char* filePath)
 {
 	printf("DECOMPRESSING: %s\n", filePath);
@@ -56,11 +57,11 @@ bool Decompressor::quadTree(unsigned int x0, unsigned int y0, double lado, std::
 
 	case'0':													//El cuadrante no se dividió. 
 	{
-		unsigned char rgba[PIXEL] = { vim->get(),vim->get(),vim->get(),255 };							//Valores de RGBA para todos los pixels del cuadrante.
+		unsigned char rgba[PIXEL] = { vim->get(),vim->get(),vim->get(),255 };	//Valores de RGBA para todos los pixels del cuadrante.
 
-		for (unsigned int j = 0; j < lado; j++)															//Se guardan los valores RGB y alfa 
-		{																								//de todos los pixels del cuadrante,
-			for (unsigned int i = 0; i < lado; i++)														//cuyo tamaño es lado*lado
+		for (unsigned int j = 0; j < lado; j++)											//Se guardan los valores RGB y alfa 
+		{																				//de todos los pixels del cuadrante,
+			for (unsigned int i = 0; i < lado; i++)										//cuyo tamaño es lado*lado
 			{
 				Img[(y0 + j)*(int)imgW*PIXEL + (x0 + i)*PIXEL + COMPONENTE_R] = rgba[COMPONENTE_R];
 				Img[(y0 + j)*(int)imgW*PIXEL + (x0 + i)*PIXEL + COMPONENTE_G] = rgba[COMPONENTE_G];
@@ -72,8 +73,8 @@ bool Decompressor::quadTree(unsigned int x0, unsigned int y0, double lado, std::
 	}
 	break;
 
-	default: noError = false;									//Si no se leyó ni 1 ni 0, 
-		break;													//se indica error por como estan guardados los datos.
+	default: noError = false;				//Si no se leyó ni 1 ni 0, 
+		break;								//se indica error por como estan guardados los datos.
 	}
 	return noError;
 }

@@ -6,7 +6,7 @@
 template <typename Type> class Node {
 
 public:
-
+	//Contructor de Node
 	Node() { ; }
 
 	Type element; // Data del nodo
@@ -17,9 +17,10 @@ public:
 	Node(const Type& element, Node * prev, Node * next)
 	{
 		this->element = element;
-		this->prev = prev;
+		this->prev = prev;	//punteros al elemento anterior y siguente
 		this->next = next;
 	}
+
 
 	Node(Node * prev = NULL, Node * next = NULL)
 	{
@@ -38,13 +39,14 @@ template<typename Type> class List
 {
 private:
 
-	Node<Type>* firstNode;
+	Node<Type>* firstNode; 
 	Node<Type>* currentNode;
 	Node<Type>* lastNode;
 
 	int listSize;
 
 public:
+	//Contructor de la lista
 	List()
 	{
 		currentNode = firstNode = new Node<Type>(NULL, NULL);
@@ -54,7 +56,7 @@ public:
 		listSize = 0;
 	}
 
-
+	//Destructor de la lista
 	~List()
 	{
 		
@@ -67,20 +69,21 @@ public:
 		delete lastNode;
 	}
 
-
+	//Devuelve el tamano de la lista
 	int getListSize()
 	{
 		return listSize;
 	}
 
-
+	//Agrega un elemento a la ultima posicion de la lista
 	void addElement(Type element)
 	{
 		lastNode->prev = lastNode->prev->next = new Node<Type>(element, lastNode->prev, NULL);
 		listSize++;
 	}
 
-
+	//Elimina un elemento de la lista recibiendo la posicion que se desea eliminar
+	//tiene en cuenta los casos en que la posicion es 0 o la ultima en la lista
 	void removeElement(int pos)
 	{
 		if (pos == 0)
@@ -111,7 +114,7 @@ public:
 		
 	}
 
-
+	//Se mueve hasta la posicion que le llega y a la cual se desea acceder y devuelve la data del elemento
 	Type& getElement(int pos)
 	{
 		if (moveToPos(pos) == true)
@@ -120,7 +123,7 @@ public:
 		}
 	}
 
-
+	//Se mueve hasta la posicion que le llega chequeando que la posicion a la que se desea acceder exista en la lista
 	bool moveToPos(int pos)
 	{
 		if ((pos < 0) || (pos >= listSize))

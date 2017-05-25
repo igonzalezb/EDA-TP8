@@ -65,7 +65,7 @@ void Compressor::quadTree(unsigned int x0, unsigned int y0, double lado, std::of
 
 	if (peso <= threshold)
 	{
-		Rmed /= (lado*lado);								//Promedios de las componentes del cuadrante para cada color
+		Rmed /= (lado*lado);	//Promedios de las componentes del cuadrante para cada color
 		Gmed /= (lado*lado);
 		Bmed /= (lado*lado);
 		*compressedImg << '0'<<(unsigned char)Rmed<<(unsigned char)Gmed<<(unsigned char)Bmed;
@@ -79,9 +79,9 @@ void Compressor::quadTree(unsigned int x0, unsigned int y0, double lado, std::of
 		*/
 		*compressedImg << '1';
 		lado/=2;
-		quadTree(x0, y0, lado, compressedImg);			//primer cuadrante
+		quadTree(x0, y0, lado, compressedImg);				//primer cuadrante
 		quadTree(x0 + lado, y0, lado, compressedImg);		//segundo cuadrante
-		quadTree(x0, y0+lado, lado, compressedImg);		//tercer cuadrante
+		quadTree(x0, y0+lado, lado, compressedImg);			//tercer cuadrante
 		quadTree(x0+lado, y0+lado, lado, compressedImg);	//cuarto cuadrante
 	}
 }
