@@ -154,6 +154,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Board.h" />
+    <ClInclude Include="Callback.h" />
     <ClInclude Include="Compressor.h" />
     <ClInclude Include="Decompressor.h" />
     <ClInclude Include="Graphics.h" />
@@ -161,11 +162,13 @@
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="parseCmdLine.h" />
     <ClInclude Include="paths.h" />
     <ClInclude Include="Tile.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
+    <ClCompile Include="Callback.cpp" />
     <ClCompile Include="Compressor.cpp" />
     <ClCompile Include="Decompressor.cpp" />
     <ClCompile Include="Graphics.cpp" />
@@ -173,6 +176,7 @@
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Node.cpp" />
+    <ClCompile Include="parseCmdLine.c" />
     <ClCompile Include="paths.cpp" />
     <ClCompile Include="Tile.cpp" />
   </ItemGroup>

@@ -157,7 +157,11 @@ void Board::removeNonSquares()
 		if (!image)
 			fprintf(stderr, "failed to check dimensions\n");
 		else if (!((al_get_bitmap_width(image) == al_get_bitmap_height(image)) && ((al_get_bitmap_width(image)&(al_get_bitmap_width(image) - 1)) == 0)))
+		{
 			Tiles->removeElement(i);
+			i--;
+		}
+			
 		else {
 			Tiles->getElement(i).setLength(al_get_bitmap_width(image));
 		}
@@ -189,7 +193,6 @@ List<Tile>* Board::getTiles()
 
 void Board::removeNonSelected()
 {
-	//int size = Tiles->getListSize();
 	for (int i = 0; i < Tiles->getListSize(); i++)
 	{
 		if (!Tiles->getElement(i).isSelected()) {

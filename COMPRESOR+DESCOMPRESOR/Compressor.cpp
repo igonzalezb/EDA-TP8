@@ -17,7 +17,7 @@ bool Compressor::compressingFunction(const char* filePath, unsigned int lado, in
 {
 	printf("COMPRESSING: %s\n", filePath);
 	imgW = lado;
-	this->threshold = THRESHOLD;
+	this->threshold = threshold;
 
 	lodepng_decode32_file(&Img, &lado, &lado, filePath);
 	

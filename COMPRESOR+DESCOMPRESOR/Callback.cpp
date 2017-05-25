@@ -1,13 +1,13 @@
-#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
 #include <string>
-#include "Callback.h"
-//#include <cctype>
+#include "callback.h"
+#include <ctype.h>
 
 #define ERROR_CALLBACK 0
 #define TERMINADOR_CALLBACK '\0'
 #define MAX_STRING 100
 #define OK 1
-
 
 int AllMin(char * string, char mayus[MAX_STRING]);
 
@@ -28,7 +28,6 @@ int Callback(char * Key, char* Value, void * Data)
 			else if (strcmp(key_min, "threshold") == false)
 			{
 				((parametros_t *)Data)->threshold = std::stoi(Value);
-				printf("threshold: %d", std::stoi(Value));
 			}
 #endif
 			else

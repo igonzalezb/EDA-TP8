@@ -14,8 +14,13 @@ is_regular_file // devuelve true si es un regular file o directory
 #include "Board.h"
 #include "Tile.h"
 #include "paths.h"
-//#include "parseCmdLine.h"
-//#include "Callback.h"
+
+extern "C"
+{
+	#include "parseCmdLine.h"
+}
+
+#include "Callback.h"
 
 #if IAM == COMPRESSOR
 #include "Compressor.h"
@@ -23,22 +28,29 @@ is_regular_file // devuelve true si es un regular file o directory
 #include "Decompressor.h"
 #endif // IAM
 
-void de_compress(Board* b);// , parametros_t userData);
+void de_compress(Board* b, parametros_t userData);
 bool allegroStartup(void);
 void allegroShutdown(void);
 
-//typedef int(*pCallback) (char *, char*, void *);
+typedef int(*pCallback) (char *, char*, void *);
 
 
 int main(int argc, char *argv[])
 {
-	//pCallback parser = &Callback;
-	//parametros_t userData;
-	//if (parseCmdLine(argc, argv, parser, &userData) == 0)
-	//{
-	//	printf("PARSER ERROR\n");
-	//	return EXIT_FAILURE;
-	//}
+	pCallback parser = &Callback;
+	parametros_t userData;
+
+	userData.path = NULL;
+#if IAM == COMPRESSOR
+	userData.threshold = 1;
+#endif
+
+
+	if (parseCmdLine(argc, argv, parser, &userData) == 0)
+	{
+		printf("PARSER ERROR\n");
+		return EXIT_FAILURE;
+	}
 	bool do_exit = false;
 	
 	if (allegroStartup()) {
@@ -50,7 +62,7 @@ int main(int argc, char *argv[])
 	imageList = new List<Tile>;
 	
 	Paths *p = new Paths(imageList);
-	p->saveDirPngs(argv[1]);//userData.path);
+	p->saveDirPngs(userData.path);
 
 	Board *b = new Board(imageList);
 
@@ -67,7 +79,7 @@ int main(int argc, char *argv[])
 		case ALLEGRO_EVENT_KEY_DOWN:
 			if (ev.keyboard.keycode == ALLEGRO_KEY_ENTER) {
 				b->startCompression();
-				de_compress(b);// , userData);
+				de_compress(b, userData);
 				do_exit = true;
 			}
 				
@@ -84,7 +96,7 @@ int main(int argc, char *argv[])
 	return EXIT_SUCCESS;
 }
 
-void de_compress(Board* b)//, parametros_t userData)
+void de_compress(Board* b, parametros_t userData)
 {
 #if IAM == COMPRESSOR
 	Compressor c;
@@ -92,7 +104,7 @@ void de_compress(Board* b)//, parametros_t userData)
 	for (int i = 0; i < b->getTiles()->getListSize(); i++)
 	{
 		
-		c.compressingFunction(b->getTiles()->getElement(i).getFilePath().c_str(), b->getTiles()->getElement(i).getLength(), 1);// , userData.threshold);
+		c.compressingFunction(b->getTiles()->getElement(i).getFilePath().c_str(), b->getTiles()->getElement(i).getLength(), userData.threshold);
 	}
 #else
 	Decompressor d;

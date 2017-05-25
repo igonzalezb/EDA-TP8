@@ -1,6 +1,5 @@
 #include "parseCmdLine.h"
-#include <iostream>
-//#include <cstdio>
+#include <stdio.h>
 
 #define OK 1
 #define ERROR 0
@@ -22,28 +21,28 @@ int parseCmdLine(int argc, char *argv[], pCallback p, void *userData)
 	 																	    
 
 	while ( i < argc && status != ERROR )				// El ciclo se ejecuta hasta procesar todos los argumentos o que haya un error.
-	{   
-		if( (*(argv[i]) ) == '-' )				// Deteccion del comienzo de una opcion.
-		{   
-				if (*((argv[i])+1) != 0 && i+1 < argc )		// Verificar que haya una clave y un valor.
-				{
-					status = p((argv[i]) + 1, argv[i+1], userData);	 // Verificar contenido.
-					i++;												
-					parsedArgs++;
-				}
-				else
-				{
-					status = ERROR;
-				}
-		}
-		else
-		{
-				status=p(NULL, argv[i], userData);		// Los parametros solo pueden tener errores de contenido.
-				parsedArgs++;							
-		}
-			i++;
+    {   
+        if( (*(argv[i]) ) == '-' )				// Deteccion del comienzo de una opcion.
+        {   
+			if (*((argv[i])+1) != 0 && i+1 < argc )		// Verificar que haya una clave y un valor.
+			{
+				status = p((argv[i]) + 1, argv[i+1], userData);	 // Verificar contenido.
+				i++;												
+				parsedArgs++;
+			}
+			else
+			{
+				status = ERROR;
+			}
+        }
+        else
+        {
+			status=p(NULL, argv[i], userData);		// Los parametros solo pueden tener errores de contenido.
+			parsedArgs++;							
+        }
+		i++;
 
-	}
+    }
     
 	if (status == ERROR)
 	{

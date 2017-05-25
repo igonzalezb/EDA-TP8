@@ -41,6 +41,12 @@
     <ClInclude Include="main.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="parseCmdLine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Callback.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -71,6 +77,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Decompressor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="parseCmdLine.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Callback.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
