@@ -7,7 +7,7 @@
 
 
 #define PIXEL		4
-#define THRESHOLD	50 //VER QUE NUMERO CONVIENE
+#define THRESHOLD	200 //VER QUE NUMERO CONVIENE
 
 using namespace std;
 
@@ -21,7 +21,7 @@ private:
 public:
 	Decompressor();
 
-	bool decompressingFunction(const char* filePath, unsigned int lado);
+	bool decompressingFunction(const char* filePath);
 	bool quadTree(unsigned int x0, unsigned int y0, double lado, std::ifstream* vim);
 };
 

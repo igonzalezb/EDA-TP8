@@ -8,7 +8,7 @@
 
 
 #define PIXEL		4
-#define THRESHOLD	1 //VER QUE NUMERO CONVIENE
+#define THRESHOLD	200 //VER QUE NUMERO CONVIENE
 
 using namespace std;
 

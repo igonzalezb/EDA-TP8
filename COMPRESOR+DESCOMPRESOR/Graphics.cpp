@@ -147,6 +147,8 @@ void Graphic::cleanScreen()
 		0.0, 0.0, SCREEN_W, SCREEN_H, 0);
 }
 
+
+
 ALLEGRO_DISPLAY * Graphic::getDisplay()
 {
 	return display;

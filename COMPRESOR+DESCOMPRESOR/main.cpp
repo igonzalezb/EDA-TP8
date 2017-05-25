@@ -88,7 +88,7 @@ void de_compress(Board* b)
 	for (int i = 0; i < b->getTiles()->getListSize(); i++)
 	{
 
-		d.decompressingFunction(b->getTiles()->getElement(i).getFilePath().c_str(), b->getTiles()->getElement(i).getLength());
+		d.decompressingFunction(b->getTiles()->getElement(i).getFilePath().c_str());
 	}
 #endif
 
