@@ -1,14 +1,42 @@
-/*
-boost crea un objeto que representa lo que esta listado
-path //objeto que apunta a un archivo o cosas de filesyst
-is_regular_file // devuelve true si es un regular file o directory
-//todo lo que sean imagenes van a ser regular files
 
-//al entrar al directorio necesitamos que boost lea todo lo q esta adentro
-//agarra un direcotrio y enlista todo lo q esta dentro
-
-//la verificacion para q el usuario no meta cosas q no existen estan en exist
-*/
+/////////////////////////////////////////////////////////////////////////////////////////////	
+//
+// Instituto Tecnologico de Buenos Aires		25/05/2017
+//
+// Algoritmos y Estructuras de Datos - Trabajo Práctico 8 (Listas y arboles)
+//
+//
+// Gonzalez Bigliardi Iñaki		 /////////////////////////////////////////
+// Lago Valentina			// Compresor y Descompresor de imagenes.
+// Muller Malena		       //////////////////////////////////////////
+//
+// El siguiente programa contiene un switch de compilacion para que funcione como compresor
+// o como descompresor. Esto debe ser modificado en main.h en #define IAM COMPRESSOR o 
+// DECOMPRESSOR segun el caso.
+//
+// COMPRESSOR: Recibe por linea de comandos: "-path" seguido por el directorio del cual se 
+//						     quieren buscar los .png.
+//					     "-threshold" seguido por el valor deseado.
+//						     (entre 0 y 3*255).
+//
+// DECOMPRESSOR: Recibe por linea de comandos: "-path" seguido por el directorio del cual se 
+// quieren buscar los .mvi.
+//
+// El COMPRESSOR comprime unicamente imagenes de tamaño cuadrado y que a su vez sea una 
+// potencia de dos. Esas imagenes .png seran las que el usuario podra ver en pantalla.
+// El resto no seran mostradas. Las imagenes comprimidas se guardan en la misma carpeta
+// de los .png correspondientes
+//
+// El DECOMPRESSOR descomprime unicamente los archivos .mvi.
+//
+// Para seleccionar las imagenes que se desean comprimir/descomprimir (con teclado):
+// Numeros del 1 al 9: para la imagen correspondiente dentro de las que se ven en la pagina.
+// A: Selecciona todas las imagenes.
+// N: Deselecciona todas las imagenes que se encuentran seleccionadas.
+// Flecha derecha: para ir a la siguiente pagina y ver mas imagenes.
+// Flecha izquierda: para ir a la pagina anterior y ver mas imagenes.
+//	
+/////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "main.h"
 #include "Board.h"
@@ -96,6 +124,11 @@ int main(int argc, char *argv[])
 	return EXIT_SUCCESS;
 }
 
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+//		DE_COMPRESS
+//	Llama al compresor o descompresor con todas los archivos que fueron seleccionados
+////////////////////////////////////////////////////////////////////////////////////////////
 void de_compress(Board* b, parametros_t userData)
 {
 #if IAM == COMPRESSOR
@@ -117,7 +150,10 @@ void de_compress(Board* b, parametros_t userData)
 
 }
 
-
+/////////////////////////////////////////////////////////////////////////////////////
+//		ALLEGRO STARTUP
+//	Inicializa allegro y los addons. Devuelve true si hubo error
+////////////////////////////////////////////////////////////////////////////////////
 bool allegroStartup(void)
 {
 	if (al_init())
@@ -163,6 +199,11 @@ bool allegroStartup(void)
 	return EXIT_FAILURE;
 }
 
+
+/////////////////////////////////////////////////////////////////////////////////////
+//		ALLEGRO SHUTDOWN
+//	Apaga allegro y los addons
+////////////////////////////////////////////////////////////////////////////////////
 void allegroShutdown(void)
 {
 	al_shutdown_font_addon();

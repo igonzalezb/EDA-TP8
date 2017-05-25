@@ -1,6 +1,8 @@
 #pragma once
-
-
+/////////////////////////////////////////////////////////////////////////////////////////////
+//		NODE
+//	Objeto para la lista
+////////////////////////////////////////////////////////////////////////////////////////////
 template <typename Type> class Node {
 
 public:
@@ -27,6 +29,11 @@ public:
 	
 };
 
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+//		LIST
+//	Lista doblemente enlazada
+////////////////////////////////////////////////////////////////////////////////////////////
 template<typename Type> class List
 {
 private:
@@ -94,14 +101,9 @@ public:
 
 		else if (moveToPos(pos) == true)
 		{
-			Node<Type>* ToRemove = currentNode;// currentNode->next;
-
-			//currentNode->next = currentNode->next->next;
+			Node<Type>* ToRemove = currentNode;
 			currentNode->prev->next = currentNode->next;
-
-			//currentNode->next->next->prev = currentNode;
 			currentNode->next->prev = currentNode->prev;
-			
 			delete ToRemove;
 			listSize--;
 		}
@@ -114,20 +116,20 @@ public:
 	{
 		if (moveToPos(pos) == true)
 		{
-			return currentNode->element;//currentNode->next->element;
+			return currentNode->element;
 		}
 	}
 
 
 	bool moveToPos(int pos)
 	{
-		if ((pos < 0) || (pos >= listSize))	//cambie poslistSize
+		if ((pos < 0) || (pos >= listSize))
 		{
 			printf("El elemento que se quiere acceder no existe en la lista\n");
 			return false;
 		}
 		
-		currentNode = firstNode->next;//cambie firstNode
+		currentNode = firstNode->next;
 
 		for (int i = 0; i < pos; i++)
 		{

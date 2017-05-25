@@ -7,9 +7,7 @@ enum { COMPONENTE_R, COMPONENTE_G, COMPONENTE_B }componentesRGB;
 #define MAX(a,b) ((a)>(b)?(a):(b))
 #define MIN(a,b) ((a)<(b)?(a):(b))
 
-Compressor::Compressor()
-{
-}
+Compressor::Compressor() { ; }
 
 
 
@@ -38,7 +36,6 @@ bool Compressor::compressingFunction(const char* filePath, unsigned int lado, in
 
 void Compressor::quadTree(unsigned int x0, unsigned int y0, double lado, std::ofstream* compressedImg) //se la llama con los limites del cuadrante
 {
-	//printf("%lf\n", lado);
 	double Rmed = 0.0, Gmed = 0.0, Bmed = 0.0;
 	unsigned int Rmax=0, Gmax=0, Bmax=0, Rmin=255, Gmin=255, Bmin=255;
 	unsigned int peso;

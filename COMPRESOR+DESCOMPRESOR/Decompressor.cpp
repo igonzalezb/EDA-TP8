@@ -40,9 +40,7 @@ bool Decompressor::decompressingFunction(const char* filePath)
 
 bool Decompressor::quadTree(unsigned int x0, unsigned int y0, double lado, std::ifstream* vim) 
 {
-	//printf("%u\n", lado);
 	unsigned char c = vim->get();
-	//printf("c=%c\n", c);
 	bool noError = false;
 	switch (c)
 	{

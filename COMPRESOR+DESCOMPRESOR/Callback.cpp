@@ -28,6 +28,12 @@ int Callback(char * Key, char* Value, void * Data)
 			else if (strcmp(key_min, "threshold") == false)
 			{
 				((parametros_t *)Data)->threshold = std::stoi(Value);
+				if (((parametros_t *)Data)->threshold < 0 || ((parametros_t *)Data)->threshold > 765) {
+					printf("Error: threshold must be between 0 & 765\n");
+					return ERROR_CALLBACK;
+				}
+					
+
 			}
 #endif
 			else
