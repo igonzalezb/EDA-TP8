@@ -16,27 +16,40 @@
 
 using namespace std;
 
+/////////////////////////////////////////////////////////////////////////////////////////////
+//		GRAPHIC
+//
+////////////////////////////////////////////////////////////////////////////////////////////
 class Graphic
 {
 	
 public:
-	/////////////////////////////////////////////////////////////////////////////////////////////
-	//		GRAPHIC
-	//	Constructor de la clase
-	////////////////////////////////////////////////////////////////////////////////////////////
+
 	Graphic();
 	~Graphic();
 #if IAM == COMPRESSOR
+	//Cargo las imagenes como bitmaps en un arrrelgo, maximo 9
 	void loadBitmaps(int i, const char *path);
+
+	//Elimino los bitmaps del arreglo
 	void removeBitmaps(unsigned int PageNumber, unsigned int ListSize);
+
+	//Dibujo en pantalla un bitmap 
 	void drawPng(unsigned int i, unsigned int j, unsigned int tileNumber, bool isSelected, unsigned int PageNumber);
 #else
+	//Dibujo en pantalla la imagen comprimida.
 	void drawCompressed(unsigned int i, unsigned int j, unsigned int tileNumber, bool isSelected, unsigned int PageNumber, const char* name);
 #endif
-	
+	//Screen que se muestra mientras se comprimen imagenes
 	void compreScreen();
+
+	//Borro todo el display y vuelvo a cargar el fondo
 	void cleanScreen();
+
+	//Devuelve un puntero al display
 	ALLEGRO_DISPLAY * getDisplay();
+
+	//Devuelve un puntero a la event queue
 	ALLEGRO_EVENT_QUEUE * getEventQueue();
 
 private:
