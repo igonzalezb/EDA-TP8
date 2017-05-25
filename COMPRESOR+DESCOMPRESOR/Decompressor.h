@@ -5,9 +5,8 @@
 #include <fstream>
 #include "paths.h"
 
-
+#define NEW_SIZE	1024
 #define PIXEL		4
-#define THRESHOLD	100 //VER QUE NUMERO CONVIENE
 
 using namespace std;
 

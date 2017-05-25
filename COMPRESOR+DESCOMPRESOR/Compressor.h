@@ -8,7 +8,7 @@
 
 
 #define PIXEL		4
-#define THRESHOLD	100 //VER QUE NUMERO CONVIENE
+#define THRESHOLD	0 //VER QUE NUMERO CONVIENE
 
 using namespace std;
 
@@ -18,12 +18,13 @@ private:
 	unsigned char* Img;
 	Paths* Path;
 	unsigned int imgW;
+	int threshold;
 
 public:
 	Compressor();
 
 	//void decode(char* path); //Descompresor tiene que tener encode
-	bool compressingFunction(const char* filePath, unsigned int lado);
+	bool compressingFunction(const char* filePath, unsigned int lado, int threshold);
 	void quadTree(unsigned int x0, unsigned int y0, double lado, std::ofstream* vim);
 };
 

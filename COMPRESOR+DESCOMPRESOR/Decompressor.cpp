@@ -7,7 +7,8 @@ enum { COMPONENTE_R, COMPONENTE_G, COMPONENTE_B, COMPONENTE_A }componentesRGB;
 
 bool Decompressor::decompressingFunction(const char* filePath)
 {
-	int lado = 2048;
+	printf("DECOMPRESSING: %s\n", filePath);
+	int lado = NEW_SIZE;
 	imgW = lado;
 
 	string _png = Path->replaceExtension((string)filePath, ".mvi", "(new).png");
@@ -32,15 +33,16 @@ bool Decompressor::decompressingFunction(const char* filePath)
 	}
 
 	vim.close();
+	printf("FINISHED\n");
 	return _noError;
 }
 
 
 bool Decompressor::quadTree(unsigned int x0, unsigned int y0, double lado, std::ifstream* vim) 
 {
-	printf("%u\n", lado);
+	//printf("%u\n", lado);
 	unsigned char c = vim->get();
-	printf("c=%c\n", c);
+	//printf("c=%c\n", c);
 	bool noError = false;
 	switch (c)
 	{

@@ -13,11 +13,12 @@ Compressor::Compressor()
 
 
 
-bool Compressor::compressingFunction(const char* filePath, unsigned int lado)
+bool Compressor::compressingFunction(const char* filePath, unsigned int lado, int threshold)
 {
-	printf("%u\n", lado);
+	printf("COMPRESSING: %s\n", filePath);
 	imgW = lado;
-	
+	this->threshold = THRESHOLD;
+
 	lodepng_decode32_file(&Img, &lado, &lado, filePath);
 	
 	string _vim = Path->replaceExtension((string)filePath, ".png", ".mvi");
@@ -30,13 +31,14 @@ bool Compressor::compressingFunction(const char* filePath, unsigned int lado)
 	quadTree(0, 0,lado,&vim);
 	vim.close();
 	free(Img);
+	printf("FINISHED\n");
 	return true;
 }
 
 
 void Compressor::quadTree(unsigned int x0, unsigned int y0, double lado, std::ofstream* compressedImg) //se la llama con los limites del cuadrante
 {
-	printf("%lf\n", lado);
+	//printf("%lf\n", lado);
 	double Rmed = 0.0, Gmed = 0.0, Bmed = 0.0;
 	unsigned int Rmax=0, Gmax=0, Bmax=0, Rmin=255, Gmin=255, Bmin=255;
 	unsigned int peso;
@@ -64,7 +66,7 @@ void Compressor::quadTree(unsigned int x0, unsigned int y0, double lado, std::of
 
 	peso = (Rmax - Rmin) + (Gmax - Gmin) + (Bmax - Bmin); //Suma de las diferencias para cada letra
 
-	if (peso <= THRESHOLD)
+	if (peso <= threshold)
 	{
 		Rmed /= (lado*lado);								//Promedios de las componentes del cuadrante para cada color
 		Gmed /= (lado*lado);
